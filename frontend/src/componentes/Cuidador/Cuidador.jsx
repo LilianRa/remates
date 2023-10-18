@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
 import './Cuidador.css'
 import { Link } from "react-router-dom";
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 import { Vigia } from "../../Vigia";
 
 export function Cuidador(){
     const [cuidador, setCuidador]=useState([])
     const [idcuidador, setIdCuidador]=useState('')
-    const [idlocalidad, setIdLocalidad]=useState('')
-    const [mensaje, setMensaje] = useState('')
     const [nombre, setNombre] = useState('')
+    const [idlocalidad, setIdLocalidad]=useState('')
+    const [localidad, setLocalidad]=useState([]);
+    const [mensaje, setMensaje] = useState('')
+   
 
     const toastTrigger = document.getElementById('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast')
@@ -31,7 +33,7 @@ export function Cuidador(){
                 setTimeout(()=>{
                     setMensaje('')
                     window.location.href='/cuidador'
-                    // API.getFabricantes().then(setFabricantes)
+                  
                     }, 2500)
             }
             return;
@@ -54,6 +56,7 @@ export function Cuidador(){
     
     useEffect(()=>{
         API.getCuidador().then(setCuidador)
+        API.getLocalidad().then(setLocalidad)
     }, [])
 
     const cambiar_estado = async (e, idcuidador, estado_actual)=>{
@@ -115,7 +118,7 @@ export function Cuidador(){
                 <td >{cuidador.idlocalidad}</td>   
                 <td >{cuidador.estado}</td>
                 <td >
-                    <Link to={`/editcuidador/${cuidador.idcuidador}`} ><button class="btn btn-warning btn-sm">Editar Link</button></Link>
+                    {/* <Link to={`/editcuidador/${cuidador.idcuidador}`} ><button class="btn btn-warning btn-sm">Editar Link</button></Link> */}
                     <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, cuidador.idcuidador)} class="btn btn-outline-warning btn-sm">Editar</button>
                     
                 {(cuidador.estado=="A")?
@@ -162,15 +165,17 @@ export function Cuidador(){
                     <label for="floatingInput">Nombre del cuidador</label>
                     </div>
                     <div className="form-floating">
-                    <input 
-                    type="text" 
-                    value={idlocalidad}
-                    onChange={(event)=>setIdLocalidad(event.target.value)}
-                    className="form-control" 
-                    placeholder="Id localidad"
-                    />
-                    <label for="floatingInput">Localidad del cuidador</label>
+                    
+                    <select required onChange={(event)=>setIdLocalidad(event.target.value)} className="form-control">
+                    <option selected value="">Seleccione una opcion</option>
+                        {localidad.map((localidad)=>(
+                        
+                        <option value={localidad.idlocalidad}>{localidad.nombre}</option>
+                        ))}
+                    </select>
                     </div>
+
+               
                 </div>
                 <div class="modal-footer">
                 <button className="btn btn-primary" type="submit" >Guardar</button>
@@ -180,20 +185,21 @@ export function Cuidador(){
                 </div>
             </div>
         </div>
-
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                 
                 <strong class="me-auto">Mensaje</strong>
                 
-                
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                 {mensaje}
                 </div>
             </div>
         </div>
-        </>
+           
+        
+         </>
     )
 }

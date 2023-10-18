@@ -34,7 +34,7 @@ export function Menu(){
     return(
         <>
             
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-dark bg-primary"aria-label="Third navbar example">
                 <div className="container-fluid">
                 <img src={reactLogo} className="logo react" alt="React logo" />
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@ export function Menu(){
                                 
                                 </li>
                             <li className="nav-link active"  aria-current="page" >{user}</li>
-                            <li><button  class="btn btn-danger" onClick={salir}>Cerrar Session</button></li>
+                            <li><button  class="btn btn-secondary" onClick={salir}>Cerrar Session</button></li>
                             </ul>
                     </div>
                 </div>

@@ -33,6 +33,8 @@ app.use(require('./routes/routescuidador'))
 app.use(require('./routes/routesjockey'))
 app.use(require('./routes/routeslocalidad'))
 app.use(require('./routes/routesUsuarios'))
+app.use(require('./routes/routesremates'))
+
 
 app.listen(app.get('puerto'), ()=>{
     console.log('El servidor esta corriendo en el puerto', app.get('puerto'))

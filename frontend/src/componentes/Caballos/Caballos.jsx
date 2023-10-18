@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
 import './Caballos.css'
 import { Link } from "react-router-dom";
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 import { Vigia } from "../../Vigia";
 
 export function Caballo(){
@@ -116,7 +116,8 @@ export function Caballo(){
             </tr>
 
             <tr>
-                <td>Caballo</td>
+               <td>Id caballo</td>
+                <td>Nombre </td>
                 <td>Estado</td>
                 <td colspan="2">Acciones</td>
             </tr>
@@ -126,9 +127,9 @@ export function Caballo(){
                 <tr>
                 <td >{caballo.idcaballo}</td> 
                 <td >{caballo.nombre}</td>    
-                {/* <td >{caballo.estado}</td> */}
+                <td >{caballo.estado}</td>
                 <td >
-                    <Link to={`/editcaballo/${caballo.idcaballo}`} ><button class="btn btn-warning btn-sm">Editar Link</button></Link>
+                    {/* <Link to={`/editcaballo/${caballo.idcaballo}`} ><button class="btn btn-warning btn-sm">Editar Link</button></Link> */}
                     <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, caballo.idcaballo)} class="btn btn-outline-warning btn-sm">Editar</button>
                     
                 {(caballo.estado=="A")?

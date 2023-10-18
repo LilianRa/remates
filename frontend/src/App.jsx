@@ -18,10 +18,11 @@ import { Ubicaciones } from './componentes/ubicaciones/Ubicaciones'
 import { Usuarios } from './componentes/usuarios/Usuarios'
 import { GenPdf } from './GenPdf'
 import { Caballo } from './componentes/Caballos/Caballos'
-import { AddCuidador, EditCuidador } from './servicios/servicios'
+import { AddCuidador } from './componentes/Cuidador/AddCuidador'
 import { Cuidador } from './componentes/Cuidador/Cuidador'
-
-
+import { Localidad } from './componentes/Localidad/Localidad'
+import { EditCuidador } from './componentes/Cuidador/EditCuidador'
+import { AddLocalidad } from './componentes/Localidad/AddLocalidad'
 
 function App() {
 
@@ -36,16 +37,19 @@ function App() {
         <Route path='/equipos' element={<Equipos/>}></Route>
         <Route path='/ubicaciones' element={<Ubicaciones/>}></Route>
         <Route path='/usuarios' element={<Usuarios/>}></Route>
-        <Route path='/modelos' element={<Modelos/>}></Route>
+        <Route path='/localidad' element={<Localidad/>}></Route>
+        <Route path='/addlocalidad' element={<AddLocalidad/>}></Route>
         <Route path='/cuidador' element={<Cuidador/>}></Route>
         <Route path='/addcuidador' element={<AddCuidador/>}></Route>
-        <Route path='/editcuidador/:idcuidador' element={<EditCuidador/>}></Route>
+       
         <Route path='/agregarcaballo' element={<AddCaballo/>}></Route>
+        {/* <Route path='/editlocalidad/:idlocalidad' element={<EditLocalidad/>}></Route> */}
         <Route path='/agregarequipo' element={<AddEquipo/>}></Route>
         <Route path='/agregarmodelo' element={<AddModelo/>}></Route>
         <Route path='/editcaballo/:idcaballo' element={<EditCaballo/>}></Route>
         <Route path='/editequipo/:id_equipo' element={<EditEquipo/>}></Route>
         <Route path='/caballos' element={<Caballo/>}></Route>
+        {/* <Route path='/remates' element={<Remates/>}></Route> */}
 
 
         <Route path='/generador' element={<GenPdf/>}></Route>

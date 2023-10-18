@@ -1,30 +1,37 @@
 const express = require('express');
-const mysqlConnect = require('../database/bd')
+const mysqlConnect = require('../database/bd');
 const bodyParser = require('body-parser');
-const router = express()
+const router = express();
+const jwt = require('jsonwebtoken');
 //////////////////////////////
 //////////////////////////////
 // listar tipos de equipo
 // metodo GET
-//URL /ubicaciones
+//URL /localidad
 //parametros : ninguno
-router.get('/ubicaciones', (req , res)=>{
-    mysqlConnect.query('SELECT * FROM ubicaciones ', (error, registros)=>{
+router.get('/localidad',verificarToken, (req, res)=>{
+    jwt.verify(req.token, 'siliconKey', (error, valido)=>{
         if(error){
-            console.log('Error en la base de datos', error)
+            res.sendStatus(403);
         }else{
-            res.json(registros)
-        }
-    })
-})
-// traer los  datos del ubicaciones por el ID
+            mysqlConnect.query('SELECT * FROM localidad ', (error, registros)=>{
+            if(error){
+                console.log('Error en la base de datos', error)
+            }else{
+                res.json(registros)
+            } 
+      })
+    }
+   })
+});
+// traer los  datos de localidad por el ID
 
 // metodo GET
-//URL /ubicaciones/:id_ubicacion
+//URL /localidad/:idlocalidad
 //parametros : ninguno
-router.get('/ubicaciones/:id_ubicacion', (req , res)=>{
-    const { id_ubicacion } = req.params
-    mysqlConnect.query('SELECT * FROM ubicaciones WHERE id_ubicacion=?', [id_ubicacion], (error, registros)=>{
+router.get('/localidad/:idlocalidad', (req , res)=>{
+    const { idlocalidad } = req.params
+    mysqlConnect.query('SELECT * FROM localidad WHERE idlocalidad=?', [idlocalidad], (error, registros)=>{
         if(error){
             console.log('Error en la base de datos', error)
         }else{
@@ -32,60 +39,88 @@ router.get('/ubicaciones/:id_ubicacion', (req , res)=>{
         }
     })
 })
-////////////////////insert de tipos equipo
+////////////////////insert de Localidades
 
 // metodo POST
-//URL /ubicaciones/
+//URL /localidad/
 //parametros : en el cuerpo(body) 
     // nombre
 
-router.post('/ubicaciones', bodyParser.json(), (req , res)=>{
-    const { nombre }  = req.body
-  
-    mysqlConnect.query('INSERT INTO ubicaciones (nombre) VALUES (?)', [nombre], (error, registros)=>{
-       if(error){
-           console.log('Error en la base de datos', error)
-       }else{
-           res.send('El insert se realizo correctamente')
-       }
+    router.post('/localidad', bodyParser.json(), (req , res)=>{
+        const { nombre}  = req.body
+       
+        mysqlConnect.query('INSERT INTO localidad (nombre) VALUES (?)', [nombre], (error, registros)=>{
+           if(error){
+               res.json({
+                   status:false,
+                   mensaje: error
+                   })
+           }else{
+               res.json({
+                   status:true,
+                   mensaje: "El insert se realizo correctamente"
+                   })
+           }
+       })
    })
-})
 
 
-////////////////////edicion de ubicaciones
+////////////////////edicion de localidad
 // metodo PUT
-//URL /ubicaciones/:id_ubicacion
+//URL:/localidad/:idlocalidad
 //parametros : 
     // en el cuerpo(body) 
     // nombre
-    // y el parametro que vamos a editar ->id_ubicacion
-router.put('/ubicaciones/:id_ubicacion', bodyParser.json(), (req , res)=>{
+    // y el parametro que vamos a editar ->idlocalidad
+router.put('/localidad/:idlocalidad', bodyParser.json(), (req , res)=>{
     const { nombre }  = req.body
-    const { id_ubicacion } = req.params
-    mysqlConnect.query('UPDATE ubicaciones SET nombre = ?  WHERE id_ubicacion = ?', [nombre, id_ubicacion], (error, registros)=>{
+    const { idlocalidad } = req.params
+    mysqlConnect.query('UPDATE localidad SET nombre = ?  WHERE idlocalidad = ?', [nombre, idlocalidad], (error, registros)=>{
        if(error){
            console.log('Error en la base de datos', error)
        }else{
-           res.send('La edicion de registro ' +id_ubicacion+ ' se realizo correctamente')
+           res.send('La edicion de registro ' +idlocalidad+ ' se realizo correctamente')
        }
    })
 })
 
-///////////////////eliminacion de ubicaciones
+///////////////////eliminacion de localidad
 // metodo DELETE
-//URL /ubicaciones/:id_ubicacion
+//URL /localidad/:idlocalidad
 //parametros : 
-    // y el parametro que vamos a borrar logicamente ->id_ubicacion
-router.delete('/ubicaciones/:id_ubicacion', bodyParser.json(), (req , res)=>{
-    const { id_ubicacion } = req.params
-    mysqlConnect.query('UPDATE ubicaciones SET estado = "B"  WHERE id_ubicacion = ?', [id_ubicacion], (error, registros)=>{
-        if(error){
-            console.log('Error en la base de datos', error)
-        }else{
-            res.send('El registro ' +id_ubicacion+ ' se dio de baja correctamente')
-        }
+    // y el parametro que vamos a borrar logicamente ->idlocalidad
+    router.delete('/localidad/:idlocalidad', bodyParser.json(), (req , res)=>{
+        const { idlocalidad } = req.params
+        mysqlConnect.query('DELETE FROM localidad WHERE idlocalidad = ?', [idlocalidad], (error, registros)=>{
+           if(error){
+               
+                res.json({
+                status:false,
+                mensaje: error
+            })
+           }else{
+             res.json({
+                status:true,
+                mensaje: 'La eliminacion del registro ' +idlocalidad+ ' se realizo correctamente'
+            })
+              
+           }
+       })
     })
-})
+
+    function verificarToken(req, res, next){
+        const bearer= req.headers['authorization'];
+        if(typeof bearer!=='undefined'){
+            const token =bearer.split(" ")[1]
+            req.token= token;
+            next()
+        }else{
+            res.send('Debe contener un token')
+        }
+     }
+    
+    
+
 
 //////////////////////////////
 //////////////////////////////

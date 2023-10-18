@@ -47,10 +47,9 @@ const editarCaballo = async(event)=>{
                   />
                   <label for="floatingInput">Datos del Caballo</label>
                 </div>
-               
-               
+                          
                 <button className="btn btn-primary" type="submit" >Guardar Edicion</button>
-                <Link to="/fabricantes" >Volver</Link>
+                <Link to="/caballos" >Volver</Link>
                 
               </form>
           </main>

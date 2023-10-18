@@ -173,32 +173,21 @@ export async function EditCaballo(datos, idcaballo){
 
 // fin de caballos
 
-// inicio de modelos
-export async function getModelos(){
+// inicio de Localidad (modelos)
+
+export async function getLocalidad(){
     const Options={
         method:'GET',
         headers: {
             'Content-Type': 'application/json',
         }
     }
-    const respuesta = await fetch(`${URL}/modelos`, Options)
+    const respuesta = await fetch(`${URL}/localidad`, Options)
     const data= await respuesta.json();
     return data
 }
 
-export async function deleteModelo(id_modelo){
-    const Options={
-        method:'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }
-    const respuesta = await fetch(`${URL}/modelos/${id_modelo}`, Options)
-    const data= await respuesta.json()
-    return data;
-}
-
-export async function AddModelo(datos){
+export async function AddLocalidad(datos){
     const Options={
         method:'POST',
         body: JSON.stringify(datos),
@@ -206,12 +195,56 @@ export async function AddModelo(datos){
             'Content-Type': 'application/json',
         }
     }
-    const respuesta = await fetch(`${URL}/modelos`, Options)
+    const respuesta = await fetch(`${URL}/localidad`, Options)
     const data= await respuesta.json()
     return data;
 }
 
-// fin de  modelos
+export async function deleteLocalidad(idlocalidad){
+    const Options={
+        method:'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    const respuesta = await fetch(`${URL}/localidad/${idlocalidad}`, Options)
+    const data= await respuesta.json()
+    return data;
+}
+
+
+
+export async function getLocalidadByID(idlocalidad){
+    const token = JSON.parse(localStorage.getItem('token'));
+    const Options={
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
+    }
+    const respuesta = await fetch(`${URL}/localidad/${idlocalidad}`, Options)
+    const data= await respuesta.json();
+    return data[0];
+}
+
+export async function EditLocalidad(datos, idlocalidad){
+    const token = JSON.parse(localStorage.getItem('token'));
+    const Options={
+        method:'PUT',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
+    }
+    const respuesta = await fetch(`${URL}/localidad/${idlocalidad}`, Options)
+    const data= await respuesta.json()
+    return data;
+}
+
+
+// fin de  localidad (modelos)
 
 
 // inicion de Cuidador
@@ -300,7 +333,7 @@ export async function AddCuidador(datos){
     return data;
 }
 
-// fin de tipo de equipos
+// fin de cuidador
 
 
 // inicio de equipos
