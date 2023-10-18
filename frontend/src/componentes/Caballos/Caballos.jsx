@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
 import './Caballos.css'
 import { Link } from "react-router-dom";
-import { Menu } from "../../Menu";
+
+import { Menu } from "../../menu";
 import { Vigia } from "../../Vigia";
 
 export function Caballo(){
@@ -22,8 +23,8 @@ export function Caballo(){
         
      
     useEffect(()=>{
-        const datos_usuario = JSON.parse(localStorage.getItem('usuario'));
-        ver_permisos(datos_usuario.id_rol);
+        // const datos_usuario = JSON.parse(localStorage.getItem('usuario'));
+        // ver_permisos(datos_usuario.id_rol);
         API.getCaballos().then(setCaballos)
     }, [])
 

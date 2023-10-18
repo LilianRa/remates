@@ -6,16 +6,17 @@ export function AddCuidador(){
 const [idcuidador, setIdCuidador] = useState('')
 const [nombre, setNombre] = useState('')
 const [idlocalidad, setIdLocalidad] = useState('')
+const [estado,setEstado]= useSate('')
 const [mensaje, setMensaje] = useState('')
 
 const guardarCuidador = async(event)=>{
     event.preventDefault();
-    const respuesta = await API.AddCuidador({idcuidador,nombre,idlocalidad})
+    const respuesta = await API.AddCuidador({idcuidador,nombre,idlocalidad,estado})
     if(respuesta.status){
         setMensaje(respuesta.mensaje)
         setTimeout(()=>{
             setMensaje('')
-            window.location.href='/cuiador'
+            window.location.href='/cuidador'
             }, 5000)
     }
     return;
@@ -60,7 +61,7 @@ const guardarCuidador = async(event)=>{
                 </div>
                
                 <button className="btn btn-primary" type="submit" >Guardar</button>
-                          
+                <Link to="/cuidador" >Volver</Link>
               </form>
           </main>
         </>

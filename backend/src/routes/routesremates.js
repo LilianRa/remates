@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken')
 // listar los caballos
 // metodo GET
 
-// listado de caballos metodo get
+// listado de remates metodo get
 
 router.get('/remates', verificarToken,(req , res)=>{
     jwt.verify(req.token, 'siliconKey', (error, valido)=>{
@@ -33,7 +33,7 @@ router.get('/remates', verificarToken,(req , res)=>{
 //parametros : ninguno
 router.get('/remates/:idremate', (req , res)=>{
     const { idcaballo } = req.params
-    mysqlConnect.query('SELECT * FROM remate WHERE idremate=?', [idremate], (error, registros)=>{
+    mysqlConnect.query('SELECT * FROM remates WHERE idremate=?', [idremate], (error, registros)=>{
         if(error){
             console.log('Error en la base de datos', error)
         }else{
@@ -89,17 +89,17 @@ router.post('/remates', bodyParser.json(), (req , res)=>{
     })
 })
 
-// ////////////////////edicion de caballos
+// ////////////////////edicion de remates
 // // metodo PUT
-// //URL /caballos/:idcaballo
+// //URL /remates/:idremates
 // //parametros :
 //     // en el cuerpo(body)
 //     // nombre
-//     // y el parametro que vamos a editar ->idcaballo
+//     // y el parametro que vamos a editar ->idremate
  router.put('/remates/:idremate', bodyParser.json(), (req , res)=>{
      const { idcaballo,fecha,mjugado,macobrar,idcarrera }  = req.body
      const { idremate } = req.params
-    mysqlConnect.query('UPDATE remate SET idcaballo = ? ,fecha=?,mjugado=?,macobrar=?,idcarrera=? WHERE idremate = ?', [idcaballo,fecha,mjugado,macobrar,idcarrera], (error, registros)=>{
+    mysqlConnect.query('UPDATE remates SET idcaballo = ? ,fecha=?,mjugado=?,macobrar=?,idcarrera=? WHERE idremate = ?', [idcaballo,fecha,mjugado,macobrar,idcarrera], (error, registros)=>{
        if(error){
            console.log('Error en la base de datos', error)
       }else{

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import * as API from '../../servicios/servicios';
+import * as API from '../../servicios/servicios'
 
 export function EditLocalidad(){
 const [nombre, setNombre] = useState('')
-const [idlocalidad, setIdLocalidad] = useState('')
 const [mensaje, setMensaje] = useState('')
 
-const {ilocalidad} = useParams()
+const {idlocalidad} = useParams()
 
 useEffect(()=>{
   traer_datos();
@@ -16,9 +15,7 @@ useEffect(()=>{
 const traer_datos =  async ()=>{
    const datos_localidad= await API.getLocalidadByID(idlocalidad);
     setNombre(datos_localidad.nombre)
-    setIdLocalidad(datos_localidad.idlocalidad)
 }
-
 
 const editarLocalidad = async(event)=>{
     event.preventDefault();
@@ -46,26 +43,16 @@ const editarLocalidad = async(event)=>{
                   value={nombre}
                   onChange={(event)=>setNombre(event.target.value)}
                   className="form-control" 
-                  placeholder="Nombre de la localidad"
+                  placeholder="Nombre de la Localidad"
                   />
-                  <label for="floatingInput">Datos de la localidad</label>
+                  <label for="floatingInput">Datos de la Localidad</label>
                 </div>
-                <div className="form-floating">
-                  <input 
-                  type="text" 
-                  value={idlocalidad}
-                  onChange={(event)=>setIdLocalidad(event.target.value)}
-                  className="form-control" 
-                  placeholder="Id de la localidad"
-                  />
-                  <label for="floatingInput">Id de la localidad</label>
-                </div>
-               
+                          
                 <button className="btn btn-primary" type="submit" >Guardar Edicion</button>
-                <Link to="/localidad" >Volver</Link>
+                <Link to="/caballos" >Volver</Link>
                 
               </form>
           </main>
         </>
     )
- } 
+}

@@ -3,19 +3,23 @@
 import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
 import { Link } from "react-router-dom";
-import { Menu } from "../../Menu";
 import { Vigia } from "../../Vigia";
-import { useEffect, useState } from 'react';
+import { Menu } from "../../menu";
+
+
 export function Remates(){
     const [remates, setRemates] = useState([])
-    const [fecha, setFecha] = useState('')
+    const [carrera, setCarreras] = useState([])
+
+    const [idremates, setIdRemates] = useState('')
     const [idcaballo, setIdcaballo] = useState('')
     const [monto_jugado, setMontoJugado] = useState('')
     const [monto_pagado, setMontoPagado] = useState('')
     const [idremate, setIdRemate] = useState('')
-    const [caballo, setCaballo] = useState([])
+    const [fecha, setFecha] = useState('')
+
     const [mensaje, setMensaje] = useState('')
-   
+    
     const toastTrigger = document.getElementById('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast')
 
@@ -27,23 +31,12 @@ export function Remates(){
       }
     useEffect(()=>{
        
-        API.getRemates().then(setRemates)
-        API.getCaballo().then(setCaballo)
+        API.getRemates().then(setRemates)  
+        API.getCarreras().then(setCarreras)
         
     }, [])
 
-    // const eliminar = async(id_modelo)=>{
-    //     if(confirm('Esta seguro de eliminar este registro?')){
-    //         const borrado = await API.deleteModelo(id_modelo);
-    //         if(borrado.status){
-
-    //             window.location.reload(true)
-    //         }else{
-    //             alert("No se puede eliminar porque ocurrio el error");
-    //         }
-    //     }
-        
-    // }
+   
     const cambiar_estado = async (e, idremate, estado_actual)=>{
         e.preventDefault();
         const actualizar = (estado_actual=="A")?"B":"A";
@@ -64,7 +57,7 @@ export function Remates(){
     }
     const guardarRemate = async(event)=>{
         event.preventDefault();
-        const respuesta = await API.AddRemate({idcaballo,fecha,mjugado,macobrar,idcarrera,});
+        const respuesta = await API.AddRemate({idremates,idcaballo,idcuidador,idjockey,fecha,mjugado,macobrar,idcarreras});
         if(respuesta.status){
             setMensaje(respuesta.mensaje)
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -76,15 +69,7 @@ export function Remates(){
         }
         return;
     }
-    // const ver_permisos =  async (id_rol)=>{
-    //     const menu='/modelos';
-    //     const respuesta= await API.ver_permisos({id_rol, menu });
-    //     if(respuesta.status){
-    //         setPermisoDenegado(true)
-    //     }else{
-    //         setPermisoDenegado(false)
-    //     }
-    // }
+   
     return(
         <>
         <Menu/>
@@ -102,17 +87,23 @@ export function Remates(){
                 </th>
             </tr>
             <tr>
-                <th>Fecha</th>
+                <th>idremate</th>
                 <th>idcaballo</th>
+                <th>idcuidador</th>
+                <th>idjockey</th>
                 <th>Monto jugado</th>
                 <th>Monto a cobrar</th>
+                <th>Fecha</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             {remates.map((remates)=>(
                 <tr>
-                <td >{remates.idcaballo}</td>    
+                <td >{remates.idremates}</td>   
+                <td >{remates.idcaballo}</td>
+                <td >{remates.idcuidador}</td> 
+                <td >{remates.idjockey}</td>         
                 <td >{remates.fecha}</td>    
                 <td >{remates.mjugado}</td>  
                 <td >{remates.macobrar}</td>  
@@ -134,7 +125,7 @@ export function Remates(){
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Datos del remate </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form onSubmit={guardarRemates}>
+                <form onSubmit={guardarRemate}>
                 <div class="modal-body">
                 
                     
@@ -151,11 +142,11 @@ export function Remates(){
                     </div>
                     <div className="form-floating">
                     
-                    <select required onChange={(event)=>setIdcaballo(event.target.value)} className="form-control">
+                    <select required onChange={(event)=>setIdcarrera(event.target.value)} className="form-control">
                     <option selected value="">Seleccione una opcion</option>
-                        {caballo.map((c)=>(
+                        {carrera.map((c)=>(
                         
-                        <option value={c.idcaballo}>{c.nombre}</option>
+                        <option value={c.idcarreras}>{c.idcaballo}</option>
                         ))}
                     </select>
                     </div>
@@ -164,7 +155,7 @@ export function Remates(){
                 </div>
                 <div class="modal-footer">
                 <button className="btn btn-primary" type="submit" >Guardar</button>
-                    
+                <Link to="/remates" >Volver</Link>
                 </div>
                 </form>
                 </div>

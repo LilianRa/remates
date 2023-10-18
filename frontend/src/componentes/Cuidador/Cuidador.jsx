@@ -10,6 +10,7 @@ export function Cuidador(){
     const [idcuidador, setIdCuidador]=useState('')
     const [nombre, setNombre] = useState('')
     const [idlocalidad, setIdLocalidad]=useState('')
+    const [estado,setEstado]=useState('')
     const [localidad, setLocalidad]=useState([]);
     const [mensaje, setMensaje] = useState('')
    
@@ -25,7 +26,7 @@ export function Cuidador(){
     const guardarCuidador = async(event)=>{
         event.preventDefault();
         if(idcuidador){
-            const respuesta = await API.EditCuidador({nombre,idlocalidad}, idcuidador)
+            const respuesta = await API.EditCuidador({nombre,idlocalidad,estado}, idcuidador)
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -38,7 +39,7 @@ export function Cuidador(){
             }
             return;
         }else{
-            const respuesta = await API.AddCuidador({idcuidador,nombre,idlocalidad})
+            const respuesta = await API.AddCuidador({idcuidador,nombre,idlocalidad,estado})
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -87,6 +88,7 @@ export function Cuidador(){
         console.log(datos_cuidador)
         setNombre(datos_cuidador.nombre)
         setIdLocalidad(datos_cuidador.idlocalidad)
+        SetEstado(datos_cuidador.estado)
     }
     return(
         <>
@@ -174,7 +176,16 @@ export function Cuidador(){
                         ))}
                     </select>
                     </div>
-
+                    <div className="form-floating">
+                    <input 
+                    type="text" 
+                    value={estado}
+                    onChange={(event)=>setEstado(event.target.value)}
+                    className="form-control" 
+                    placeholder="Estado del cuidador"
+                    />
+                    <label for="floatingInput">Estado del cuidador</label>
+                    </div>
                
                 </div>
                 <div class="modal-footer">

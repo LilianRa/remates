@@ -176,16 +176,36 @@ export async function EditCaballo(datos, idcaballo){
 // inicio de Localidad (modelos)
 
 export async function getLocalidad(){
+    const token = JSON.parse(localStorage.getItem('token'));
     const Options={
         method:'GET',
         headers: {
             'Content-Type': 'application/json',
+             Authorization: `Bearer ${token}`,
         }
     }
     const respuesta = await fetch(`${URL}/localidad`, Options)
-    const data= await respuesta.json();
+    const data= await respuesta.json()
+
     return data
 }
+
+
+
+
+
+
+// export async function getLocalidad(){
+//     const Options={
+//         method:'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         }
+//     }
+//     const respuesta = await fetch(`${URL}/localidad`, Options)
+//     const data= await respuesta.json();
+//     return data
+// }
 
 export async function AddLocalidad(datos){
     const Options={
@@ -245,6 +265,88 @@ export async function EditLocalidad(datos, idlocalidad){
 
 
 // fin de  localidad (modelos)
+
+//inicio Remates
+
+
+export async function getRemates(){
+    const token = JSON.parse(localStorage.getItem('token'));
+    const Options={
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+             Authorization: `Bearer ${token}`,
+        }
+    }
+    const respuesta = await fetch(`${URL}/remates`, Options)
+    const data= await respuesta.json()
+
+    return data
+}
+
+
+export async function getRematesByID(idremates){
+    const token = JSON.parse(localStorage.getItem('token'));
+    const Options={
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
+    }
+    const respuesta = await fetch(`${URL}/remates/${idremates}`, Options)
+    const data= await respuesta.json();
+    return data[0];
+}
+export async function EditRemates(datos, idremate){
+        const token = JSON.parse(localStorage.getItem('token'));
+        const Options={
+            method:'PUT',
+            body: JSON.stringify(datos),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
+        }
+        const respuesta = await fetch(`${URL}/remates/${idremate}`, Options)
+        const data= await respuesta.json()
+        return data;
+}
+
+    export async function ActualizarEstadoRemate(idremate, actualizar){
+        const token = JSON.parse(localStorage.getItem('token'));
+        const Options={
+            method:'DELETE',
+            body: JSON.stringify(actualizar),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
+        }
+        const respuesta = await fetch(`${URL}/remates/${idremate}`, Options)
+        const data= await respuesta.json()
+        return data;
+    }
+
+    export async function AddRemate(datos){
+        const token = JSON.parse(localStorage.getItem('token'));
+        const Options={
+            method:'POST',
+            body: JSON.stringify(datos),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
+        }
+        const respuesta = await fetch(`${URL}/remates`, Options)
+        const data= await respuesta.json()
+        return data;
+    }
+    
+
+
+
+
 
 
 // inicion de Cuidador
@@ -507,5 +609,19 @@ export async function ResetUsuariosByID(id_usuario){
     }
     const respuesta = await fetch(`${URL}/resetpass/${id_usuario}`, Options)
     const data= await respuesta.json()
-    return data;
+    return data;}
+//cominezo con carreras
+
+export async function getCarreras(){
+    const token = JSON.parse(localStorage.getItem('token'));
+    const Options={
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+             Authorization: `Bearer ${token}`,
+        }
+    }
+    const respuesta = await fetch(`${URL}/carreras`, Options)
+    const data= await respuesta.json();
+    return data
 }

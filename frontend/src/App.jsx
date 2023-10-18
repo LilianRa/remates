@@ -23,6 +23,9 @@ import { Cuidador } from './componentes/Cuidador/Cuidador'
 import { Localidad } from './componentes/Localidad/Localidad'
 import { EditCuidador } from './componentes/Cuidador/EditCuidador'
 import { AddLocalidad } from './componentes/Localidad/AddLocalidad'
+import { Remates } from './componentes/remates/remates'
+import { Carreras } from './componentes/carreras/Carreras'
+
 
 function App() {
 
@@ -41,7 +44,7 @@ function App() {
         <Route path='/addlocalidad' element={<AddLocalidad/>}></Route>
         <Route path='/cuidador' element={<Cuidador/>}></Route>
         <Route path='/addcuidador' element={<AddCuidador/>}></Route>
-       
+        <Route path='/carreras' element={<Carreras/>}></Route>
         <Route path='/agregarcaballo' element={<AddCaballo/>}></Route>
         {/* <Route path='/editlocalidad/:idlocalidad' element={<EditLocalidad/>}></Route> */}
         <Route path='/agregarequipo' element={<AddEquipo/>}></Route>
@@ -49,7 +52,9 @@ function App() {
         <Route path='/editcaballo/:idcaballo' element={<EditCaballo/>}></Route>
         <Route path='/editequipo/:id_equipo' element={<EditEquipo/>}></Route>
         <Route path='/caballos' element={<Caballo/>}></Route>
-        {/* <Route path='/remates' element={<Remates/>}></Route> */}
+        <Route path='/remates' element={<Remates/>}></Route>
+        
+
 
 
         <Route path='/generador' element={<GenPdf/>}></Route>

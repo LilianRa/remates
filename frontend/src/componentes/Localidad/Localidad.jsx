@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Menu } from "../../menu";
 import { Vigia } from "../../Vigia";
 export function Localidad(){
-    const [localidad,setLocalidad] = useState([]);
+    const [localidad,setLocalidad] = useState([])
     const [nombre, setNombre] = useState('')
     const [idlocalidad, setIdLocalidad] = useState('')
     
@@ -26,7 +26,18 @@ export function Localidad(){
         
     }, [])
 
-    
+    const eliminar = async(idlocalidad)=>{
+        if(confirm('Esta seguro de eliminar este registro?')){
+            const borrado = await API.deleteLocalidad(idlocalidad);
+            if(borrado.status){
+
+                window.location.reload(true)
+            }else{
+                alert("No se puede eliminar porque ocurrio el error");
+            }
+        }
+        
+    }
     
     const guardarLocalidad = async(event)=>{
         event.preventDefault();
@@ -82,7 +93,9 @@ export function Localidad(){
                
                
                 <td >
-                    <button onClick={()=>modificar(localidad.idlocalidad )}  data-bs-toggle="modal"  data-bs-target="#exampleModal" class="btn btn-warning btn-sm" >Editar</button>
+                    {/* <button onClick={()=>modificar(localidad.idlocalidad )}  data-bs-toggle="modal"  data-bs-target="#exampleModal" class="btn btn-warning btn-sm" >Editar</button>
+                     */}
+                     <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, localidad.idlocalidad)} class="btn btn-outline-warning btn-sm">Editar</button>
                     <button onClick={()=>eliminar(localidad.idlocalidad )}  class="btn btn-danger btn-sm" >Eliminar</button>
                 </td>
                 </tr>
