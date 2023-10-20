@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
 import './Cuidador.css'
 import { Link } from "react-router-dom";
-import { Menu } from "../../Menu";
+
 import { Vigia } from "../../Vigia";
+import { Menu } from "../../menu";
 
 export function Cuidador(){
     const [cuidador, setCuidador]=useState([])
     const [idcuidador, setIdCuidador]=useState('')
     const [nombre, setNombre] = useState('')
     const [idlocalidad, setIdLocalidad]=useState('')
-    const [estado,setEstado]=useState('')
+  
     const [localidad, setLocalidad]=useState([]);
     const [mensaje, setMensaje] = useState('')
    
@@ -26,7 +27,7 @@ export function Cuidador(){
     const guardarCuidador = async(event)=>{
         event.preventDefault();
         if(idcuidador){
-            const respuesta = await API.EditCuidador({nombre,idlocalidad,estado}, idcuidador)
+            const respuesta = await API.EditCuidador({nombre,idlocalidad}, idcuidador)
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -39,7 +40,7 @@ export function Cuidador(){
             }
             return;
         }else{
-            const respuesta = await API.AddCuidador({idcuidador,nombre,idlocalidad,estado})
+            const respuesta = await API.AddCuidador({nombre,idlocalidad})
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -88,8 +89,9 @@ export function Cuidador(){
         console.log(datos_cuidador)
         setNombre(datos_cuidador.nombre)
         setIdLocalidad(datos_cuidador.idlocalidad)
-        SetEstado(datos_cuidador.estado)
+     
     }
+
     return(
         <>
         <Menu/>
@@ -146,16 +148,16 @@ export function Cuidador(){
                 <form onSubmit={guardarCuidador}>
                 <div class="modal-body">
                     
-                <div className="form-floating">
-                    <input 
-                    type="text" 
+                {/* <div className="form-floating"> */}
+                    {/* <input 
+                    type="number" 
                     value={idcuidador}
                     onChange={(event)=>setIdCuidador(event.target.value)}
                     className="form-control" 
                     placeholder="Id Cuidador"
                     />
                     <label for="floatingInput">Id cuidador</label>
-                    </div>
+                    </div> */}
                     <div className="form-floating">
                     <input 
                     type="text" 
@@ -171,12 +173,11 @@ export function Cuidador(){
                     <select required onChange={(event)=>setIdLocalidad(event.target.value)} className="form-control">
                     <option selected value="">Seleccione una opcion</option>
                         {localidad.map((localidad)=>(
-                        
                         <option value={localidad.idlocalidad}>{localidad.nombre}</option>
                         ))}
                     </select>
                     </div>
-                    <div className="form-floating">
+                    {/* <div className="form-floating">
                     <input 
                     type="text" 
                     value={estado}
@@ -185,7 +186,7 @@ export function Cuidador(){
                     placeholder="Estado del cuidador"
                     />
                     <label for="floatingInput">Estado del cuidador</label>
-                    </div>
+                    </div> */}
                
                 </div>
                 <div class="modal-footer">

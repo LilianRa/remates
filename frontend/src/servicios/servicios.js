@@ -46,17 +46,44 @@ export async function Registro(datos){
 }
 
 
-export async function getUsuariosByID(idusuarios){
+export async function getUsuariosByID(id_usuario){
     const Options={
         method:'GET',
         headers: {
             'Content-Type': 'application/json',
         }
     }
-    const respuesta = await fetch(`${URL}/usuarios/${idusuarios}`, Options)
+    const respuesta = await fetch(`${URL}/usuarios/${id_usuario}`, Options)
     const data= await respuesta.json();
     return data[0];
 }
+
+export async function EditUsuario(datos, id_usuario){
+    const Options={
+        method:'PUT',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    const respuesta = await fetch(`${URL}/usuarios/${id_usuario}`, Options)
+    const data= await respuesta.json()
+    return data;
+}
+
+export async function AddUsuario(datos){
+    const Options={
+        method:'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    const respuesta = await fetch(`${URL}/usuarios`, Options)
+    const data= await respuesta.json()
+    return data;
+}
+
 
 export async function getMenuByRol(id_rol){
     const token = JSON.parse(localStorage.getItem('token'));

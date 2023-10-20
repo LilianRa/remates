@@ -52,7 +52,7 @@ const editarCuidador = async(event)=>{
                 </div>
                 <div className="form-floating">
                   <input 
-                  type="text" 
+                  type="number" 
                   value={idlocalidad}
                   onChange={(event)=>setIdLocalidad(event.target.value)}
                   className="form-control" 

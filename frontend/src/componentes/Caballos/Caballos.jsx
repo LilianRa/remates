@@ -92,15 +92,15 @@ export function Caballo(){
             }
             
         }
-        const ver_permisos =  async (id_rol)=>{
-            const menu='/caballos';
-            const respuesta= await API.ver_permisos({id_rol, menu });
-            if(respuesta.status){
-                setPermisoDenegado(true)
-            }else{
-                setPermisoDenegado(false)
-            }
-        }
+        // const ver_permisos =  async (id_rol)=>{
+        //     const menu='/caballos';
+        //     const respuesta= await API.ver_permisos({id_rol, menu });
+        //     if(respuesta.status){
+        //         setPermisoDenegado(true)
+        //     }else{
+        //         setPermisoDenegado(false)
+        //     }
+        // }
     return(
         <>
         

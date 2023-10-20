@@ -75,7 +75,7 @@ router.get('/cuidador/:idcuidador', (req , res)=>{
     // cuidador, idlocalidad
   
 router.post('/cuidador', bodyParser.json(), (req , res)=>{
-    const { idcuidador,nombre, idlocalidad }  = req.body
+    const { nombre, idlocalidad }  = req.body
 
     if(!nombre){
         res.json({
@@ -89,19 +89,19 @@ router.post('/cuidador', bodyParser.json(), (req , res)=>{
             mensaje: "El codigo de localidad  es un campo obligatorio"
         })
     }
-    if(!idcuidador){
-        res.json({
-            status:false,
-            mensaje: "El codigo de cuidador es un campo obligatorio"
-        })
-    if(idcuidador){
-        res.json({
-            status:false,
-            mensaje:"el codigo ingresado ya existe"
-        })
-    }
-              }
-                mysqlConnect.query('INSERT INTO cuidador (idcuidador,nombre, idlocalidad) VALUES (?,?,?)', [idcuidador, nombre, idlocalidad], (error, registros)=>{
+    // if(!idcuidador){
+    //     res.json({
+    //         status:false,
+    //         mensaje: "El codigo de cuidador es un campo obligatorio"
+    //     })
+    // if(idcuidador){
+    //     res.json({
+    //         status:false,
+    //         mensaje:"el codigo ingresado ya existe"
+    //     })
+    // }
+    //           }
+            mysqlConnect.query('INSERT INTO cuidador (nombre, idlocalidad) VALUES (?,?,)', [ nombre, idlocalidad], (error, registros)=>{
                     if(error){
                         console.log('Error en la base de datos', error)
                     }else{
@@ -111,9 +111,9 @@ router.post('/cuidador', bodyParser.json(), (req , res)=>{
                     })
                     }
                 })
+                       
+            })         
             
-})
-
 
 // traer los  datos del equipo por el ID
 

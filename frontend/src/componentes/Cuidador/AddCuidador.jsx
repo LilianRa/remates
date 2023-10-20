@@ -11,7 +11,7 @@ const [mensaje, setMensaje] = useState('')
 
 const guardarCuidador = async(event)=>{
     event.preventDefault();
-    const respuesta = await API.AddCuidador({idcuidador,nombre,idlocalidad,estado})
+    const respuesta = await API.AddCuidador({nombre,idlocalidad})
     if(respuesta.status){
         setMensaje(respuesta.mensaje)
         setTimeout(()=>{
@@ -28,16 +28,16 @@ const guardarCuidador = async(event)=>{
                 <div>
                     {mensaje}
                 </div>
-                <div className="form-floating">
+                {/* <div className="form-floating">
                   <input 
-                  type="text" 
+                  type="number" 
                   value={idcuidador}
                   onChange={(event)=>setIdCuidador(event.target.value)}
                   className="form-control" 
                   placeholder="Id Cuidador"
                   />
                   <label for="floatingInput">Id del Cuidador</label>
-                </div>
+                </div> */}
                 <div className="form-floating"></div>
                 <div className="form-floating">
                   <input 
@@ -50,8 +50,8 @@ const guardarCuidador = async(event)=>{
                   <label for="floatingInput">Nombre del Cuidador</label>
                 </div>
                 <div className="form-floating">
-                  <input 
-                  type="text" 
+                  <input required
+                  type="number" 
                   value={idlocalidad}
                   onChange={(event)=>setIdLocalidad(event.target.value)}
                   className="form-control" 

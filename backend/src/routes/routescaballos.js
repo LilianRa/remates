@@ -100,11 +100,14 @@ router.post('/caballos', bodyParser.json(), (req , res)=>{
      const { nombre }  = req.body
      const { idcaballo } = req.params
     mysqlConnect.query('UPDATE caballo SET nombre = ?  WHERE idcaballo = ?', [nombre,idcaballo], (error, registros)=>{
-       if(error){
-           console.log('Error en la base de datos', error)
-      }else{
-            res.send('La edicion de registro ' +idcaballo+ ' se realizo correctamente')
-       }
+        if(error){
+            console.log('Error en la base de datos', error)
+        }else{
+            res.json({
+                status:true,
+                mensaje: "El registro se realizo correctamente"
+                })
+        }
     })
 })
 

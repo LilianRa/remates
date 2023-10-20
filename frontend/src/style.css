@@ -1,5 +1,15 @@
 .imagen{
-    background-image: url("/bordes-abstractos-degradados_23-2150602085.avif");
+    background-image: url("/public/fondo.avif");
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
 }
+
+body{
+    background-image: url('https://c4.wallpaperflare.com/wallpaper/691/170/464/fondos-de-pantalla-color-azul-abstract-wallpaper-preview.jpg');
+    background-attachment:scroll;
+    background-size: cover;
+    background-repeat:inherit;
+
+}
+
+

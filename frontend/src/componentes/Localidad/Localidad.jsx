@@ -53,15 +53,26 @@ export function Localidad(){
         }
         return;
     }
-    const ver_permisos =  async (id_rol)=>{
-        const menu='/localidad';
-        const respuesta= await API.ver_permisos({id_rol, menu });
-        if(respuesta.status){
-            setPermisoDenegado(true)
-        }else{
-            setPermisoDenegado(false)
-        }
+    const editar_registro = async (e, idlocalidad)=>{
+        e.preventDefault();
+        
+        console.log('el id que vamos a editar es el ', idlocalidad)
+        setIdLocalidad(idlocalidad)
+        const datos_localidad= await API.getLocalidadByID(idlocalidad);
+        console.log(datos_localidad)
+        setNombre(datos_localidad.nombre)
+        setIdLocalidad(datos_localidad.idlocalidad)
+     
     }
+    // const ver_permisos =  async (id_rol)=>{
+    //     const menu='/localidad';
+    //     const respuesta= await API.ver_permisos({id_rol, menu });
+    //     if(respuesta.status){
+    //         setPermisoDenegado(true)
+    //     }else{
+    //         setPermisoDenegado(false)
+    //     }
+    // }
      return(
         <>
         <Vigia/>
@@ -75,8 +86,7 @@ export function Localidad(){
                 <th colspan="3">
                     {/* <Link  class="btn btn-primary btn-sm"  to="/agregarmodelo">Agregar Modelo link</Link> */}
                     <button  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" >Agregar</button>
-                    {/* <button type="button" class="btn btn-danger" id="liveToastBtn">Show live toast</button> */}
-               
+                    
                 </th>
             </tr>
             <tr>
@@ -114,7 +124,7 @@ export function Localidad(){
                 <form onSubmit={guardarLocalidad}>
                 <div class="modal-body">
                 
-                <div className="form-floating">   
+                {/* <div className="form-floating">   
                     <input  required
                     type="text" 
                     value={idlocalidad}
@@ -123,7 +133,7 @@ export function Localidad(){
                     placeholder=" localidad"
                     />
                     <label for="floatingInput">Id de la localidad</label>
-                    </div>
+                    </div> */}
                     <div className="form-floating">
                     <input 
                     required

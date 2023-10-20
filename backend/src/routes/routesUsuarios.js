@@ -49,9 +49,9 @@ router.get('/usuarios/:id_usuario', (req , res)=>{
     // nombre
 
 router.post('/usuarios', bodyParser.json(), (req , res)=>{
-    const { nombre }  = req.body
+    const { nombre,apellido,dni,user,pass,correo,id_rol }  = req.body
   
-    mysqlConnect.query('INSERT INTO usuarios (nombre) VALUES (?)', [nombre], (error, registros)=>{
+    mysqlConnect.query('INSERT INTO usuarios (nombre,apellido,dni,user,pass,correo,id_rol) VALUES (?,?,?,?,?,?,?)', [nombre,apellido,dni,user,pass,correo,id_rol], (error, registros)=>{
        if(error){
            console.log('Error en la base de datos', error)
        }else{
@@ -72,9 +72,9 @@ router.post('/usuarios', bodyParser.json(), (req , res)=>{
     // nombre
     // y el parametro que vamos a editar ->id_usuario
 router.put('/usuarios/:id_usuario', bodyParser.json(), (req , res)=>{
-    const { nombre }  = req.body
+    const { nombre,apellido,dni,user,pass,correo,id_rol }  = req.body
     const { id_usuario } = req.params
-    mysqlConnect.query('UPDATE usuarios SET nombre = ?  WHERE id_usuario = ?', [nombre, id_usuario], (error, registros)=>{
+    mysqlConnect.query('UPDATE usuarios SET nombre = ?, apellido=?,dni=?,user=?,pass=?,correo=?,id_rol=?  WHERE id_usuario = ?', [nombre,apellido,dni,user,pass,correo,id_rol, id_usuario], (error, registros)=>{
        if(error){
            console.log('Error en la base de datos', error)
        }else{

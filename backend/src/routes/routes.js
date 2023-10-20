@@ -54,13 +54,13 @@ router.post('/registro', bodyParser.json() , (req , res)=>{
     })
 })
 
-router.get('/menu/:idrol',verificarToken, (req , res)=>{
-    const { idrol } = req.params;
+router.get('/menu/:id_rol',verificarToken, (req , res)=>{
+    const { id_rol } = req.params;
     jwt.verify(req.token, 'siliconKey', (error, valido)=>{
         if(error){
             res.sendStatus(403);
         }else{
-            mysqlConnect.query('SELECT * FROM menu WHERE idrol=?', [idrol], (error, registros)=>{
+            mysqlConnect.query('SELECT * FROM menu WHERE id_rol=?', [id_rol], (error, registros)=>{
                 if(error){
                     console.log('Error en la base de datos', error)
                 }else{
@@ -75,13 +75,13 @@ router.get('/menu/:idrol',verificarToken, (req , res)=>{
 })
 
 router.post('/menu_permisos/',verificarToken, bodyParser.json() , (req , res)=>{
-    const { idrol, menu } = req.body;
+    const { id_rol, menu } = req.body;
    
     jwt.verify(req.token, 'siliconKey', (error, valido)=>{
         if(error){
             res.sendStatus(403);
         }else{
-            mysqlConnect.query('SELECT * FROM menu WHERE idrol=? AND href=?', [idrol, menu], (error, registros)=>{
+            mysqlConnect.query('SELECT * FROM menu WHERE id_rol=? AND href=?', [id_rol, menu], (error, registros)=>{
                 if(error){
                     console.log('Error en la base de datos', error)
                 }else{

@@ -7,8 +7,16 @@ import Swal from 'sweetalert2'
 export function Usuarios(){
     const [usuarios, setUsuarios]=useState([])
     const [id_usuario, setIdUsuarios]=useState('')
-    const [mensaje, setMensaje] = useState('')
     const [nombre, setNombre] = useState('')
+    const [apellido,setApellido]=useState('')
+    const [dni,setDni]=useState('')
+    const [user,setUser]=useState('')
+    const[pass,setPassword]=useState('')
+    const[correo,setCorreo]=useState('')
+    const[id_rol,setIdRol]=useState('')
+    const [mensaje, setMensaje] = useState('')
+    
+
     const [permisoDenegado, setPermisoDenegado] = useState(false)
     const toastTrigger = document.getElementById('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast')
@@ -21,7 +29,7 @@ export function Usuarios(){
     const guardarUsuario = async(event)=>{
         event.preventDefault();
         if(id_usuario){
-            const respuesta = await API.EditUsuario({nombre}, id_usuario)
+            const respuesta = await API.EditUsuario({nombre,apellido,dni,user,pass,correo,id_rol}, id_usuario)
     
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
@@ -30,12 +38,12 @@ export function Usuarios(){
                 setTimeout(()=>{
                     setMensaje('')
                     window.location.href='/usuarios'
-                    // API.getUsuarios().then(setUsuarios)
+                    
                     }, 2500)
             }
             return;
         }else{
-            const respuesta = await API.AddUsuario({nombre})
+            const respuesta = await API.AddUsuario({nombre,apellido,dni,user,pass,correo,id_rol})
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -110,6 +118,22 @@ export function Usuarios(){
         const datos_usuario= await API.getUsuariosByID(id_usuario);
         console.log(datos_usuario)
         setNombre(datos_usuario.nombre)
+        setApellido(datos_usuario.apellido)
+        setDni(datos_usuario.dni)
+        setUser(datos_usuario.user)
+        setPassword(datos_usuario.pass)
+        setCorreo(datos_usuario.correo)
+        setIdRol(datos_usuario.id_rol)
+    }
+
+    const limpiarModal = async ()=>{
+        setNombre('')
+        setApellido('')
+        setDni('')
+        setUser('')
+        setPassword('')
+        setCorreo('')
+        setIdRol('')
     }
 
     const resetPass = async (e, id_usuario)=>{
@@ -158,11 +182,13 @@ export function Usuarios(){
             setPermisoDenegado(false)
         }
     }
-
+   
+    
     return(
         <>
         
         <Menu/>
+        
         {
         !permisoDenegado? 
             <div className="alert alert-warning" role="alert">
@@ -175,10 +201,10 @@ export function Usuarios(){
                 
                 <th colspan="6">
                 
-                <button  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" ><i class="bi bi-database-add"></i>Agregar</button>
+                <button onClick={(event)=>limpiarModal('')}  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" ><i class="bi bi-database-add"></i>Agregar</button>
                 &nbsp;
                 
-                <input  type="checkbox"/>Solo Activos
+                {/* <input  type="checkbox"/>Solo Activos */}
                 </th>    
             </tr>
 
@@ -226,14 +252,15 @@ export function Usuarios(){
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Datos del modelo </h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Datos del usuario </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form onSubmit={guardarUsuario}>
                 <div class="modal-body">
-                
-                    
-                    <div className="form-floating">
+                               
+                                
+                <h1 className="h3 mb-3 fw-normal">Por favor completar los datos</h1>             
+                    {/* <div className="form-floating">
                     <input required
                     type="text" 
                     value={nombre}
@@ -242,7 +269,86 @@ export function Usuarios(){
                     placeholder="Nombre del usuarios"
                     />
                     <label for="floatingInput">Nombre del usuario</label>
-                    </div>
+                    </div> */}
+                                 
+                <div className="form-floating">
+                  <input 
+                  type="text" 
+                  value={apellido}
+                  onChange={(event)=>setApellido(event.target.value)}
+                  className="form-control" 
+                  id="apellido" 
+                  />
+                  <label for="apellido">Apellido</label>
+                </div>
+                <div className="form-floating">
+                  <input 
+                  type="text" 
+                  value={nombre}
+                  onChange={(event)=>setNombre(event.target.value)}
+                  className="form-control" 
+                  id="nombre" 
+                  />
+                  <label for="nombre">Nombre</label>
+                </div>
+
+                <div className="form-floating">
+                  <input 
+                  type="number" 
+                  value={dni}
+                  onChange={(event)=>setDni(event.target.value)}
+                  className="form-control" 
+                  id="dni" 
+                  />
+                  <label for="dni">DNI</label>
+                </div>
+                <div className="form-floating">
+                <input 
+                  type="email" 
+                  value={correo}
+                  onChange={(event)=>setCorreo(event.target.value)}
+                  className="form-control" 
+                  id="correo" 
+                  />
+                  <label for="correo">Correo</label>
+                </div>
+                
+                <div className="form-floating">
+                  <input 
+                  required
+                  type="text" 
+                  value={user}
+                  onChange={(event)=>setUser(event.target.value)}
+                //   onBlur={(event)=>validarNick(event.target.value)}
+                  className="form-control" 
+                  id="user" 
+                  />
+              <label for="usuario">Usuario</label>
+                </div>
+               
+                <div className="form-floating">
+                  <input 
+                  required
+                  type="password" 
+                  value={pass}
+                  onChange={(event)=>setPassword(event.target.value)}
+                  className="form-control" 
+                  id="pass" 
+                  />
+                  <label for="password">Password</label>
+                </div>
+                <div className="form-floating">
+                  <input 
+                  required
+                  type="Number" 
+                  value={id_rol}
+                  onChange={(event)=>setIdRol(event.target.value)}
+                  className="form-control" 
+                  id="rol" 
+                  />
+                  <label for="password">Id rol</label>
+                </div>
+                    
                 </div>
                 <div class="modal-footer">
                 <button className="btn btn-primary" type="submit" >Guardar</button>

@@ -28,6 +28,16 @@ const guardarCaballo = async(event)=>{
                 </div>
                 <div className="form-floating">
                   <input 
+                  type="number" 
+                  value={idcaballo}
+                  onChange={(event)=>setIdCaballo(event.target.value)}
+                  className="form-control" 
+                  placeholder="Id del caballo"
+                  />
+                  <label for="floatingInput">Id del caballo</label>
+                </div>
+                <div className="form-floating">
+                  <input 
                   type="text" 
                   value={nombre}
                   onChange={(event)=>setNombre(event.target.value)}
@@ -36,16 +46,7 @@ const guardarCaballo = async(event)=>{
                   />
                   <label for="floatingInput">Nombre del Caballo</label>
                 </div>
-                <div className="form-floating">
-                  <input 
-                  type="text" 
-                  value={idcaballo}
-                  onChange={(event)=>setIdCaballo(event.target.value)}
-                  className="form-control" 
-                  placeholder="Id del caballo"
-                  />
-                  <label for="floatingInput">Id del caballo</label>
-                </div>
+                
                
                
                 <button className="btn btn-primary" type="submit" >Guardar</button>

@@ -8,8 +8,10 @@ import { Menu } from "../../menu";
 
 
 export function Remates(){
+    
     const [remates, setRemates] = useState([])
-    const [carrera, setCarreras] = useState([])
+    const [caballo, setCaballo] = useState([])
+    const [carrera, setCarrera] = useState([])
 
     const [idremates, setIdRemates] = useState('')
     const [idcaballo, setIdcaballo] = useState('')
@@ -17,6 +19,7 @@ export function Remates(){
     const [monto_pagado, setMontoPagado] = useState('')
     const [idremate, setIdRemate] = useState('')
     const [fecha, setFecha] = useState('')
+    const [idcarrera,setIdCarreras]=useState('')
 
     const [mensaje, setMensaje] = useState('')
     
@@ -32,7 +35,12 @@ export function Remates(){
     useEffect(()=>{
        
         API.getRemates().then(setRemates)  
+        API.getCaballo().then(setCaballo)
         API.getCarreras().then(setCarreras)
+        
+
+
+
         
     }, [])
 
@@ -57,7 +65,7 @@ export function Remates(){
     }
     const guardarRemate = async(event)=>{
         event.preventDefault();
-        const respuesta = await API.AddRemate({idremates,idcaballo,idcuidador,idjockey,fecha,mjugado,macobrar,idcarreras});
+        const respuesta = await API.AddRemate({idremates,idcaballo,fecha,mjugado,macobrar,idcarreras});
         if(respuesta.status){
             setMensaje(respuesta.mensaje)
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -89,8 +97,6 @@ export function Remates(){
             <tr>
                 <th>idremate</th>
                 <th>idcaballo</th>
-                <th>idcuidador</th>
-                <th>idjockey</th>
                 <th>Monto jugado</th>
                 <th>Monto a cobrar</th>
                 <th>Fecha</th>
@@ -102,8 +108,6 @@ export function Remates(){
                 <tr>
                 <td >{remates.idremates}</td>   
                 <td >{remates.idcaballo}</td>
-                <td >{remates.idcuidador}</td> 
-                <td >{remates.idjockey}</td>         
                 <td >{remates.fecha}</td>    
                 <td >{remates.mjugado}</td>  
                 <td >{remates.macobrar}</td>  
@@ -132,7 +136,7 @@ export function Remates(){
                     <div className="form-floating">
                     <input 
                     required
-                    type="text" 
+                    type="date" 
                     value={fecha}
                     onChange={(event)=>setFecha(event.target.value)}
                     className="form-control" 
@@ -145,8 +149,7 @@ export function Remates(){
                     <select required onChange={(event)=>setIdcarrera(event.target.value)} className="form-control">
                     <option selected value="">Seleccione una opcion</option>
                         {carrera.map((c)=>(
-                        
-                        <option value={c.idcarreras}>{c.idcaballo}</option>
+                     <option value={c.idcarreras}></option>
                         ))}
                     </select>
                     </div>
