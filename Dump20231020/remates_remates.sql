@@ -16,29 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cuidador`
+-- Table structure for table `remates`
 --
 
-DROP TABLE IF EXISTS `cuidador`;
+DROP TABLE IF EXISTS `remates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cuidador` (
-  `idcuidador` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) DEFAULT NULL,
-  `idlocalidad` int DEFAULT NULL,
+CREATE TABLE `remates` (
+  `idremate` int NOT NULL AUTO_INCREMENT,
+  `idcaballo` int NOT NULL,
+  `fecha` date NOT NULL,
+  `mjugado` decimal(19,2) NOT NULL,
+  `macobrar` decimal(19,2) NOT NULL,
+  `idcarrera` int NOT NULL,
   `estado` enum('A','B') DEFAULT 'A',
-  PRIMARY KEY (`idcuidador`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='datos de los cuidadores';
+  PRIMARY KEY (`idremate`,`idcaballo`,`fecha`,`idcarrera`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='contiene todos los remates realizados';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cuidador`
+-- Dumping data for table `remates`
 --
 
-LOCK TABLES `cuidador` WRITE;
-/*!40000 ALTER TABLE `cuidador` DISABLE KEYS */;
-INSERT INTO `cuidador` VALUES (1,'de la costa',4,NULL),(2,'eee',4,'B'),(3,'Nego blaid',2,'A'),(4,'sebastian',3,'A'),(5,'sebastian',3,'B'),(6,'SDFSD',2,'A'),(7,'Anabela',3,'B');
-/*!40000 ALTER TABLE `cuidador` ENABLE KEYS */;
+LOCK TABLES `remates` WRITE;
+/*!40000 ALTER TABLE `remates` DISABLE KEYS */;
+INSERT INTO `remates` VALUES (1,1,'2015-03-03',5000.00,5100.00,1,'A'),(2,1,'2015-05-03',6000.00,6300.00,1,'A');
+/*!40000 ALTER TABLE `remates` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-17 11:25:30
+-- Dump completed on 2023-10-20 20:14:24

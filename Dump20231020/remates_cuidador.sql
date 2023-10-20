@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `caballo`
+-- Table structure for table `cuidador`
 --
 
-DROP TABLE IF EXISTS `caballo`;
+DROP TABLE IF EXISTS `cuidador`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `caballo` (
-  `idcaballo` int NOT NULL,
-  `nombre` varchar(60) DEFAULT NULL,
-  `estado` enum('A','B') CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT 'A',
-  PRIMARY KEY (`idcaballo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='contiene informacion de los caballos';
+CREATE TABLE `cuidador` (
+  `idcuidador` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `idlocalidad` int DEFAULT NULL,
+  `estado` enum('A','B') DEFAULT 'A',
+  PRIMARY KEY (`idcuidador`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='datos de los cuidadores';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `caballo`
+-- Dumping data for table `cuidador`
 --
 
-LOCK TABLES `caballo` WRITE;
-/*!40000 ALTER TABLE `caballo` DISABLE KEYS */;
-INSERT INTO `caballo` VALUES (2,'algen','A');
-/*!40000 ALTER TABLE `caballo` ENABLE KEYS */;
+LOCK TABLES `cuidador` WRITE;
+/*!40000 ALTER TABLE `cuidador` DISABLE KEYS */;
+INSERT INTO `cuidador` VALUES (1,'Norberto',4,NULL),(2,'ii',3,'B'),(3,'Nego blaid',3,'A'),(4,'sebastian',3,'B'),(5,'sebastian v',3,'B'),(6,'SDFSD',2,'A'),(7,'Cuidador  bonito',7,'A'),(8,'Nuevo cuidador bonito',6,'B'),(9,'algo mas',4,'A');
+/*!40000 ALTER TABLE `cuidador` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-17 11:25:29
+-- Dump completed on 2023-10-20 20:14:24
