@@ -1,36 +1,72 @@
 import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
-import { Link } from "react-router-dom";
 import { Menu } from "../../menu";
-import { Vigia } from "../../Vigia";
+import Swal from 'sweetalert2' 
+
 export function Localidad(){
-    const [localidad,setLocalidad] = useState([])
+    const [localidad, setLocalidad]=useState([])
+    const [idlocalidad, setIdLocalidad]=useState('')
     const [nombre, setNombre] = useState('')
-    const [idlocalidad, setIdLocalidad] = useState('')
-    
     const [mensaje, setMensaje] = useState('')
-   
+    
+
+    const [permisoDenegado, setPermisoDenegado] = useState(false)
     const toastTrigger = document.getElementById('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast')
-
+    
     if (toastTrigger) {
         const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
         toastTrigger.addEventListener('click', () => {
           toastBootstrap.show()
         })
       }
-    useEffect(()=>{
-       
-        API.getLocalidad().then(setLocalidad)
-       
+    
+      
+    const guardarLocalidad = async(event)=>{
+        event.preventDefault();
+        if(idlocalidad){
+            const respuesta = await API.EditLocalidad({nombre}, idlocalidad)
+    
+            if(respuesta.status){
+                setMensaje(respuesta.mensaje)
+                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                toastBootstrap.show()
+                setTimeout(()=>{
+                    setMensaje('')
+                    window.location.href='/localidad'
+                    
+                    }, 2500)
+            }
+            return;
+        }else{
+            const respuesta = await API.AddLocalidad({nombre})
+            if(respuesta.status){
+                setMensaje(respuesta.mensaje)
+                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                toastBootstrap.show()
+                setTimeout(()=>{
+                    setMensaje('')
+                    window.location.href='/localidad'
+                    // API.getUsuarios().then(setUsuarios)
+                    }, 2500)
+            }
+            return;
+        }
         
+    }
+    
+    useEffect(()=>{
+        const datos_usuario = JSON.parse(localStorage.getItem('usuario'));
+        ver_permisos(datos_usuario.id_rol);
+        API.getLocalidad().then(setLocalidad)
     }, [])
 
+    
     const eliminar = async(idlocalidad)=>{
+        console.log('el registro a eliminar es :'+idlocalidad)
         if(confirm('Esta seguro de eliminar este registro?')){
             const borrado = await API.deleteLocalidad(idlocalidad);
             if(borrado.status){
-
                 window.location.reload(true)
             }else{
                 alert("No se puede eliminar porque ocurrio el error");
@@ -38,80 +74,78 @@ export function Localidad(){
         }
         
     }
-    
-    const guardarLocalidad = async(event)=>{
-        event.preventDefault();
-        const respuesta = await API.AddLocalidad({nombre});
-        if(respuesta.status){
-            setMensaje(respuesta.mensaje)
-            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-            toastBootstrap.show()
-
-            setTimeout(()=>{
-                window.location.href='/localidad'
-                }, 3000)
-        }
-        return;
-    }
     const editar_registro = async (e, idlocalidad)=>{
         e.preventDefault();
         
-        console.log('el id que vamos a editar es el ', idlocalidad)
         setIdLocalidad(idlocalidad)
         const datos_localidad= await API.getLocalidadByID(idlocalidad);
         console.log(datos_localidad)
         setNombre(datos_localidad.nombre)
         setIdLocalidad(datos_localidad.idlocalidad)
-     
     }
-    // const ver_permisos =  async (id_rol)=>{
-    //     const menu='/localidad';
-    //     const respuesta= await API.ver_permisos({id_rol, menu });
-    //     if(respuesta.status){
-    //         setPermisoDenegado(true)
-    //     }else{
-    //         setPermisoDenegado(false)
-    //     }
-    // }
-     return(
+
+    const limpiarModal = async ()=>{
+        setNombre('')
+        setIdLocalidad('')
+              
+    }
+    const ver_permisos =  async (id_rol)=>{
+        const menu='/usuarios';
+        const respuesta= await API.ver_permisos({id_rol, menu });
+        if(respuesta.status){
+            setPermisoDenegado(true)
+        }else{
+            setPermisoDenegado(false)
+        }
+    }
+   
+    
+    return(
         <>
-        <Vigia/>
-        <Menu/>
-      
         
+        <Menu/>
+        
+        {
+        !permisoDenegado? 
+            <div className="alert alert-warning" role="alert">
+            No tiene  permiso para acceder a esta opción
+            </div>
+            :<>
         <table class="table table-striped">
         <thead>
             <tr>
                 
-                <th colspan="3">
-                    {/* <Link  class="btn btn-primary btn-sm"  to="/agregarmodelo">Agregar Modelo link</Link> */}
-                    <button  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" >Agregar</button>
-                    
-                </th>
+                <th colspan="6">
+                
+                <button onClick={(event)=>limpiarModal('')}  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" ><i class="bi bi-database-add"></i>Agregar</button>
+                &nbsp;
+                
+                {/* <input  type="checkbox"/>Solo Activos */}
+                </th>    
             </tr>
+
             <tr>
-                <th>Id Localidad</th>
-                <th>Localidad</th>
-                <th>Acciones</th>
+                <td>Id de localidad</td>
+                <td>Localidad</td>
+                <td colspan="2">Acciones</td>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {localidad.map((localidad)=>(
                 <tr>
                 <td >{localidad.idlocalidad}</td>    
-                <td >{localidad.nombre}</td>    
-               
-               
-                <td >
-                    {/* <button onClick={()=>modificar(localidad.idlocalidad )}  data-bs-toggle="modal"  data-bs-target="#exampleModal" class="btn btn-warning btn-sm" >Editar</button>
-                     */}
-                     <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, localidad.idlocalidad)} class="btn btn-outline-warning btn-sm">Editar</button>
-                    <button onClick={()=>eliminar(localidad.idlocalidad )}  class="btn btn-danger btn-sm" >Eliminar</button>
+                <td >{localidad.nombre}</td>
+                <td>
+              
+                <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, localidad.idlocalidad)} class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i>Editar</button>
+                <button onClick={()=>eliminar(localidad.idlocalidad )}  class="btn btn-danger btn-sm" ><i class="bi bi-trash"></i>Eliminar</button>                
+                
                 </td>
                 </tr>
+
             ))}
-        </tbody>
-       
+            </tbody>
+            
            
         </table>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -123,41 +157,22 @@ export function Localidad(){
                 </div>
                 <form onSubmit={guardarLocalidad}>
                 <div class="modal-body">
-                
-                {/* <div className="form-floating">   
-                    <input  required
-                    type="text" 
-                    value={idlocalidad}
-                    onChange={(event)=>setIdLocalidad(event.target.value)}
-                    className="form-control" 
-                    placeholder=" localidad"
-                    />
-                    <label for="floatingInput">Id de la localidad</label>
-                    </div> */}
-                    <div className="form-floating">
-                    <input 
-                    required
-                    type="text" 
-                    value={nombre}
-                    onChange={(event)=>setNombre(event.target.value)}
-                    className="form-control" 
-                    placeholder="Nombre de la localidad"
-                    />
-                    <label for="floatingInput">Nombre de la localidad</label>
-                    </div>
-                    <div className="form-floating">
+                               
+                                
+                <h1 className="h3 mb-3 fw-normal">Por favor completar los datos</h1>             
                     
-                    
-                    {/* <select required onChange={(event)=>setIdLocalidad(event.target.value)} className="form-control">
-                    <option selected value="">Seleccione una opcion</option>
-                        {fabricantes.map((f)=>(
-                        
-                        <option value={f.id_fabricante}>{f.nombre}</option>
-                        ))}
-                    </select> */}
-                    </div>
-
-               
+                                 
+                <div className="form-floating">
+                  <input 
+                  type="text" 
+                  value={nombre}
+                  onChange={(event)=>setNombre(event.target.value)}
+                  className="form-control" 
+                  id="localidad" 
+                  />
+                  <label for="nombre">Localidad</label>
+                </div>
+                                  
                 </div>
                 <div class="modal-footer">
                 <button className="btn btn-primary" type="submit" >Guardar</button>
@@ -167,21 +182,23 @@ export function Localidad(){
                 </div>
             </div>
         </div>
+
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                 
                 <strong class="me-auto">Mensaje</strong>
                 
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                
                 </div>
                 <div class="toast-body">
                 {mensaje}
                 </div>
             </div>
         </div>
-           
+        </>
+        }
         
-         </>
+        </>
     )
 }

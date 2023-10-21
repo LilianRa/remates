@@ -22,7 +22,6 @@ import { AddCuidador } from './componentes/Cuidador/AddCuidador'
 import { Cuidador } from './componentes/Cuidador/Cuidador'
 import { Localidad } from './componentes/Localidad/Localidad'
 import { EditCuidador } from './componentes/Cuidador/EditCuidador'
-import { AddLocalidad } from './componentes/Localidad/AddLocalidad'
 import { Remates } from './componentes/remates/remates'
 import { Carreras } from './componentes/carreras/Carreras'
 
@@ -41,7 +40,6 @@ function App() {
         <Route path='/ubicaciones' element={<Ubicaciones/>}></Route>
         <Route path='/usuarios' element={<Usuarios/>}></Route>
         <Route path='/localidad' element={<Localidad/>}></Route>
-        <Route path='/addlocalidad' element={<AddLocalidad/>}></Route>
         <Route path='/cuidador' element={<Cuidador/>}></Route>
         <Route path='/addcuidador' element={<AddCuidador/>}></Route>
         <Route path='/carreras' element={<Carreras/>}></Route>

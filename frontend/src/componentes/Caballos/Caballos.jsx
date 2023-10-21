@@ -112,7 +112,7 @@ export function Caballo(){
                 
                 <th colspan="4">
                 {/* <Link class="btn btn-outline-primary btn-sm" to="/agregarcaballo">Agregar</Link> */}
-                <button  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" >Agregar </button>
+                <button  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" ><i class="bi bi-database-add"></i>Agregar </button>
                 </th>    
             </tr>
 
@@ -131,7 +131,7 @@ export function Caballo(){
                 <td >{caballo.estado}</td>
                 <td >
                     {/* <Link to={`/editcaballo/${caballo.idcaballo}`} ><button class="btn btn-warning btn-sm">Editar Link</button></Link> */}
-                    <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, caballo.idcaballo)} class="btn btn-outline-warning btn-sm">Editar</button>
+                    <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, caballo.idcaballo)} class="btn btn-outline-warning btn-sm"><i class="bi bi-pencil"></i>Editar</button>
                     
                 {(caballo.estado=="A")?
                 <button class="btn btn-danger btn-sm" onClick={(event)=>cambiar_estado(event, caballo.idcaballo, caballo.estado )} >Desactivar</button>
@@ -158,7 +158,7 @@ export function Caballo(){
                 
                    <div className="form-floating">
                     <input required
-                    type="text" 
+                    type="number" 
                     value={idcaballo}
                     onChange={(event)=>setIdCaballos(event.target.value)}
                     className="form-control" 

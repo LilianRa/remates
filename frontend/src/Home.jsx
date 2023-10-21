@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import './Style.css';
+import'./style.css';
 
 export function Home(){
 
@@ -32,7 +32,7 @@ export function Home(){
             <main class="px-3">
               
               <h2> Bienvenidos al Sistema de jugadas </h2>
-              
+             
               {/* <img src="./public/fondo.avif" class="img-fluid" alt=""></img> */}
               {/* <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p> */}
               <p class="lead">

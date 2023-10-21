@@ -79,7 +79,11 @@ router.put('/localidad/:idlocalidad', bodyParser.json(), (req , res)=>{
        if(error){
            console.log('Error en la base de datos', error)
        }else{
-           res.send('La edicion de registro ' +idlocalidad+ ' se realizo correctamente')
+        res.json({
+            status:true,
+            mensaje: "La edición se realizó correctamente"
+            })
+           
        }
    })
 })
