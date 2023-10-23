@@ -41,7 +41,7 @@ export function Cuidador(){
             }
             return;
         }else{
-            const respuesta = await API.AddCuidador({nombre,idlocalidad,estado})
+            const respuesta = await API.AddCuidador({nombre,idlocalidad})
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
