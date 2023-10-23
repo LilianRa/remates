@@ -16,29 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `menu`
+-- Table structure for table `localidad`
 --
 
-DROP TABLE IF EXISTS `menu`;
+DROP TABLE IF EXISTS `localidad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `menu` (
-  `id_menu` int NOT NULL,
+CREATE TABLE `localidad` (
+  `idlocalidad` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `href` varchar(45) DEFAULT NULL,
-  `id_rol` int DEFAULT NULL,
-  PRIMARY KEY (`id_menu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idlocalidad`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='lista de localidades';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `menu`
+-- Dumping data for table `localidad`
 --
 
-LOCK TABLES `menu` WRITE;
-/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,'carreras','/carreras',1),(2,'caballos','/caballos',1),(3,'cuidador','/cuidador',2),(4,'Usuarios','/Usuarios',1),(5,'remates','/remates',1),(6,'remates','/remates',2),(7,'cuidador','/cuidador',1),(8,'localidad','/localidad',1),(9,'localidad','/localidad',2);
-/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
+LOCK TABLES `localidad` WRITE;
+/*!40000 ALTER TABLE `localidad` DISABLE KEYS */;
+INSERT INTO `localidad` VALUES (3,'san martin'),(4,'Posadas 1'),(5,'Aristoblulo del valle'),(28,'Jardín America');
+/*!40000 ALTER TABLE `localidad` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-20 20:14:24
+-- Dump completed on 2023-10-23 16:51:57

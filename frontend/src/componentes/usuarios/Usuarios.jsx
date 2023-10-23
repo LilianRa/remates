@@ -16,10 +16,12 @@ export function Usuarios(){
     const[id_rol,setIdRol]=useState('')
     const [mensaje, setMensaje] = useState('')
     
-
+    
     const [permisoDenegado, setPermisoDenegado] = useState(false)
     const toastTrigger = document.getElementById('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast')
+     
+
     if (toastTrigger) {
         const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
         toastTrigger.addEventListener('click', () => {
@@ -153,6 +155,7 @@ export function Usuarios(){
             if (result.isConfirmed) {
                 console.log('mi id_usuario es-->',id_usuario)
                 API.ResetUsuariosByID(id_usuario)
+                var a = 1
                 .then((respuesta) => {
                     console.log(respuesta)
                     if(respuesta.status){
@@ -162,14 +165,16 @@ export function Usuarios(){
                             'Exito!',
                             mensaje,
                             'success'
+                            
                           )
                          
                     }
              
                 })
+
             }
         })
-
+        
         const datos_usuario= await API.ResetUsuariosByID(id_usuario);
     
     }
@@ -202,8 +207,15 @@ export function Usuarios(){
                 <th colspan="6">
                 
                 <button onClick={(event)=>limpiarModal('')}  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" ><i class="bi bi-database-add"></i>Agregar</button>
-                &nbsp;
                 
+                &nbsp;
+
+                
+                {/* {(a= 1)?
+                <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>cambiar_pass(event, usuario.id_usuario)} class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i>Cambiar contraseña</button>
+                : 
+                <button disabled class="btn btn-warning btn-sm">Cambiar contraseña</button>
+                } */}
                 {/* <input  type="checkbox"/>Solo Activos */}
                 </th>    
             </tr>
@@ -239,7 +251,7 @@ export function Usuarios(){
                 }
                 
                 <button onClick={(event)=>resetPass(event, usuario.id_usuario)} class="btn btn-dark btn-sm"><i class="bi bi-arrow-clockwise"></i>Reset Password</button>
-                
+               
                
                 </td>
                 </tr>

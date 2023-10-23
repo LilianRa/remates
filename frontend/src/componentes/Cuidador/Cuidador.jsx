@@ -11,6 +11,7 @@ export function Cuidador(){
     const [idcuidador, setIdCuidador]=useState('')
     const [nombre, setNombre] = useState('')
     const [idlocalidad, setIdLocalidad]=useState('')
+    const [estado,setEstado]=useState('')
   
     const [localidad, setLocalidad]=useState([]);
     const [mensaje, setMensaje] = useState('')
@@ -40,7 +41,7 @@ export function Cuidador(){
             }
             return;
         }else{
-            const respuesta = await API.AddCuidador({nombre,idlocalidad})
+            const respuesta = await API.AddCuidador({nombre,idlocalidad,estado})
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)

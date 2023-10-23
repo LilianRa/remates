@@ -16,28 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `caballo`
+-- Table structure for table `remates`
 --
 
-DROP TABLE IF EXISTS `caballo`;
+DROP TABLE IF EXISTS `remates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `caballo` (
+CREATE TABLE `remates` (
+  `idremate` int NOT NULL,
   `idcaballo` int NOT NULL,
-  `nombre` varchar(60) DEFAULT NULL,
-  `estado` enum('A','B') CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT 'A',
-  PRIMARY KEY (`idcaballo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='contiene informacion de los caballos';
+  `mjugado` decimal(19,2) NOT NULL,
+  `macobrar` decimal(19,2) NOT NULL,
+  `idcarrera` int NOT NULL,
+  `estado` enum('A','B') DEFAULT 'A',
+  `fecha` date DEFAULT NULL,
+  PRIMARY KEY (`idremate`,`idcaballo`,`idcarrera`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='contiene todos los remates realizados';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `caballo`
+-- Dumping data for table `remates`
 --
 
-LOCK TABLES `caballo` WRITE;
-/*!40000 ALTER TABLE `caballo` DISABLE KEYS */;
-INSERT INTO `caballo` VALUES (2,'algunos3','A');
-/*!40000 ALTER TABLE `caballo` ENABLE KEYS */;
+LOCK TABLES `remates` WRITE;
+/*!40000 ALTER TABLE `remates` DISABLE KEYS */;
+INSERT INTO `remates` VALUES (1,23,1250.00,4590.00,1,'A','2023-10-21'),(2,1,6000.00,6300.00,1,'A','2023-10-20'),(3,23,2134.00,2233.00,2,'B','2023-10-11'),(4,2,2333.00,3222.00,1,'A','2023-10-12'),(5,7,2333.00,32345.00,1,'A','2023-10-13'),(6,23,2134.00,2233.00,3,'A','2023-10-12'),(7,1,5000.00,5200.00,1,'A','2023-10-06');
+/*!40000 ALTER TABLE `remates` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-20 20:14:24
+-- Dump completed on 2023-10-23 16:51:57

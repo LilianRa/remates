@@ -7,11 +7,13 @@ import { Menu } from "../../menu";
 import { Vigia } from "../../Vigia";
 
 export function Caballo(){
-    const [caballo, setCaballos]=useState([])
+    const [caballo, setCaballos]=useState([]);
+
     const [idcaballo, setIdCaballos]=useState('')
-    const [mensaje, setMensaje] = useState('')
     const [nombre, setNombre] = useState('')
 
+    const [mensaje, setMensaje] = useState('')
+    
     const toastTrigger = document.getElementById('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast')
     if (toastTrigger) {
@@ -40,9 +42,8 @@ export function Caballo(){
 
 
         const limpiarModal = async ()=>{
+                setNombre('')
         
-        setNombre('')
-        setIdTipoEquipo('')
         }
         const guardarCaballo = async(event)=>{
             event.preventDefault();
@@ -60,7 +61,7 @@ export function Caballo(){
                 }
                 return;
             }else{
-                const respuesta = await API.AddCaballo({idcaballo,nombre})
+                const respuesta = await API.AddCaballo({nombre})
                 if(respuesta.status){
                     setMensaje(respuesta.mensaje)
                     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -112,7 +113,7 @@ export function Caballo(){
                 
                 <th colspan="4">
                 {/* <Link class="btn btn-outline-primary btn-sm" to="/agregarcaballo">Agregar</Link> */}
-                <button  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" ><i class="bi bi-database-add"></i>Agregar </button>
+                <button onClick={(event)=>limpiarModal('')}  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" ><i class="bi bi-database-add"></i>Agregar</button>
                 </th>    
             </tr>
 
@@ -155,17 +156,7 @@ export function Caballo(){
                 </div>
                 <form onSubmit={guardarCaballo}>
                 <div class="modal-body">
-                
-                   <div className="form-floating">
-                    <input required
-                    type="number" 
-                    value={idcaballo}
-                    onChange={(event)=>setIdCaballos(event.target.value)}
-                    className="form-control" 
-                    placeholder="Id del caballo"
-                    />
-                    <label for="floatingInput">Id del caballo</label>
-                    </div>
+                           
                     <div className="form-floating">
                     <input required
                     type="text" 

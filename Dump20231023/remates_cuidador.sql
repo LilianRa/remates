@@ -28,7 +28,7 @@ CREATE TABLE `cuidador` (
   `idlocalidad` int DEFAULT NULL,
   `estado` enum('A','B') DEFAULT 'A',
   PRIMARY KEY (`idcuidador`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='datos de los cuidadores';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='datos de los cuidadores';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `cuidador` (
 
 LOCK TABLES `cuidador` WRITE;
 /*!40000 ALTER TABLE `cuidador` DISABLE KEYS */;
-INSERT INTO `cuidador` VALUES (1,'Norberto',4,NULL),(2,'ii',3,'B'),(3,'Nego blaid',3,'A'),(4,'sebastian',3,'B'),(5,'sebastian v',3,'B'),(6,'SDFSD',2,'A'),(7,'Cuidador  bonito',7,'A'),(8,'Nuevo cuidador bonito',6,'B'),(9,'algo mas',4,'A');
+INSERT INTO `cuidador` VALUES (1,'Norberto',28,'B'),(2,'oo',3,'A'),(3,'Nego blaid',3,'A'),(14,'Carlos',3,'A'),(15,'Carlos',3,'A'),(16,'Alexis',3,'A');
 /*!40000 ALTER TABLE `cuidador` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-20 20:14:24
+-- Dump completed on 2023-10-23 16:51:58

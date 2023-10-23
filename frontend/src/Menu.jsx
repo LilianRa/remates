@@ -48,10 +48,10 @@ export function Menu(){
                                 
                                 </li>
                             ))}
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <Link  className="nav-link active" aria-current="page"  to='../generador'>Generador</Link>
                                 
-                                </li>
+                                </li> */}
                             <li className="nav-link active"  aria-current="page" >{user}</li>
                             <li><button  class="btn btn-secondary" onClick={salir}>Cerrar Session</button></li>
                             </ul>

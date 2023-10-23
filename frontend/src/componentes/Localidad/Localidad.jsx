@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
 import { Menu } from "../../menu";
 import Swal from 'sweetalert2' 
+import { Vigia } from "../../Vigia";
 
 export function Localidad(){
     const [localidad, setLocalidad]=useState([])
+    const [usuario,setUsuario]=useState([])
     const [idlocalidad, setIdLocalidad]=useState('')
     const [nombre, setNombre] = useState('')
     const [mensaje, setMensaje] = useState('')
@@ -21,7 +23,7 @@ export function Localidad(){
         })
       }
     
-      
+          
     const guardarLocalidad = async(event)=>{
         event.preventDefault();
         if(idlocalidad){
@@ -56,11 +58,23 @@ export function Localidad(){
     }
     
     useEffect(()=>{
-        const datos_usuario = JSON.parse(localStorage.getItem('usuario'));
-        ver_permisos(datos_usuario.id_rol);
+        // const datos_usuario = JSON.parse(localStorage.getItem('usuario'));
+        // console.log(datos_usuario);
+        // ver_permisos(datos_usuario.id_rol);
         API.getLocalidad().then(setLocalidad)
     }, [])
 
+    // const ver_permisos =  async (id_rol)=>{
+    //     const menu='/usuarios';
+    //     const respuesta= await API.ver_permisos({id_rol, menu });
+    //     if(respuesta.status){
+    //         setPermisoDenegado(true)
+    //     }else{
+    //         setPermisoDenegado(false)
+    //     }
+    // }
+    
+    
     
     const eliminar = async(idlocalidad)=>{
         console.log('el registro a eliminar es :'+idlocalidad)
@@ -89,28 +103,30 @@ export function Localidad(){
         setIdLocalidad('')
               
     }
-    const ver_permisos =  async (id_rol)=>{
-        const menu='/usuarios';
-        const respuesta= await API.ver_permisos({id_rol, menu });
-        if(respuesta.status){
-            setPermisoDenegado(true)
-        }else{
-            setPermisoDenegado(false)
-        }
-    }
-   
+    // const ver_permisos =  async (id_rol)=>{
+    //     const menu='/usuarios';
+    //     const respuesta= await API.ver_permisos({id_rol, menu });
+    //     if(respuesta.status){
+    //         setPermisoDenegado(true)
+    //     }else{
+    //         setPermisoDenegado(false)
+    //     }
+    // }
+// }
     
     return(
         <>
         
         <Menu/>
+        <Vigia/>
+
         
-        {
+        {/* {
         !permisoDenegado? 
             <div className="alert alert-warning" role="alert">
             No tiene  permiso para acceder a esta opción
             </div>
-            :<>
+            :<> */}
         <table class="table table-striped">
         <thead>
             <tr>
@@ -125,9 +141,10 @@ export function Localidad(){
             </tr>
 
             <tr>
-                <td>Id de localidad</td>
-                <td>Localidad</td>
-                <td colspan="2">Acciones</td>
+                    <th >id localidad</th>
+                    <th >nombre</th>
+                    <th  colspan="2">Acciones</th>
+
             </tr>
             </thead>
             <tbody>
@@ -182,23 +199,24 @@ export function Localidad(){
                 </div>
             </div>
         </div>
-
+        
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                 
                 <strong class="me-auto">Mensaje</strong>
                 
-                
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                 {mensaje}
                 </div>
             </div>
         </div>
-        </>
-        }
-        
+
         </>
     )
 }
+
+
+       

@@ -4,6 +4,7 @@ const mysqlConnect = require('../database/bd')
 const bodyParser = require('body-parser');
 const router = express()
 const jwt = require('jsonwebtoken')
+
 //////////////////////////////
 //////////////////////////////
 //////////////////////////////
@@ -45,49 +46,27 @@ router.get('/caballos/:idcaballo', (req , res)=>{
 
 ////////////////////insert de caballos
 
-// metodo POST
-//URL /caballos/
-//parametros : en el cuerpo(body)
-    // nombre
 
-// 
-// router.post('/caballo', bodyParser.json(), (req , res)=>{
-//     const { idcaballo,nombre }  = req.body
-//         jwt.verify(req.token, 'siliconKey', (error, valido)=>{
-//             if(error){
-//              res.sendStatus(403);
-//             }else{
-//                 mysqlConnect.query('INSERT INTO caballo (idcaballo,nombre) VALUES (?,?)', [idcaballo,nombre], (error, registros)=>{
-//              if(error){
-//                  console.log('Error en la base de datos', error)
-//              }else{
-//                     res.json({
-//                     status:true,
-//                     mensaje: "El insert se realizo correctamente"
-//                     })
-//             }
-//    })
-// }
-// })
 router.post('/caballos', bodyParser.json(), (req , res)=>{
-    const { idcaballo,nombre }  = req.body
-    jwt.verify(req.token, 'siliconKey', (error, valido)=>{
-        if(error){
-            res.sendStatus(403);
-        }else{
-            mysqlConnect.query('INSERT INTO caballo (idcaballo,nombre) VALUES (?,?)', [idcaballo,nombre], (error, registros)=>{
-            if(error){
-                console.log('Error en la base de datos', error)
-            }else{
-                res.json({
-                    status:true,
-                    mensaje: "El registro se realizo correctamente"
-                    })
-            }
-        })
-        }
-    })
+    const { nombre}  = req.body
+   
+    mysqlConnect.query('INSERT INTO caballo (nombre) VALUES (?)', [nombre], (error, registros)=>{
+       if(error){
+           res.json({
+               status:false,
+               mensaje: error
+               })
+       }else{
+           res.json({
+               status:true,
+               mensaje: "El insert se realizo correctamente"
+               })
+       }
+   })
 })
+
+
+
 
 // ////////////////////edicion de caballos
 // // metodo PUT
@@ -105,7 +84,7 @@ router.post('/caballos', bodyParser.json(), (req , res)=>{
         }else{
             res.json({
                 status:true,
-                mensaje: "El registro se realizo correctamente"
+                mensaje: "La edición se realizo correctamente"
                 })
         }
     })

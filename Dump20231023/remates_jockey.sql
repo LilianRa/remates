@@ -16,27 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `localidad`
+-- Table structure for table `jockey`
 --
 
-DROP TABLE IF EXISTS `localidad`;
+DROP TABLE IF EXISTS `jockey`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `localidad` (
-  `idlocalidad` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idlocalidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='lista de localidades';
+CREATE TABLE `jockey` (
+  `idjockey` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `telefono` varchar(16) DEFAULT '0000-000000',
+  `peso` int DEFAULT NULL,
+  PRIMARY KEY (`idjockey`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `localidad`
+-- Dumping data for table `jockey`
 --
 
-LOCK TABLES `localidad` WRITE;
-/*!40000 ALTER TABLE `localidad` DISABLE KEYS */;
-INSERT INTO `localidad` VALUES (4,'L.N.Alem'),(5,'posadas'),(7,'san martin'),(13,'Posadas'),(14,'Aristoblulos'),(15,'Curioso'),(18,'dos de mayo'),(19,'25 de mayo'),(21,'corrientes'),(22,'L.N.Alem 1');
-/*!40000 ALTER TABLE `localidad` ENABLE KEYS */;
+LOCK TABLES `jockey` WRITE;
+/*!40000 ALTER TABLE `jockey` DISABLE KEYS */;
+INSERT INTO `jockey` VALUES (1,'Norberto','algo','3755-609040',45),(2,'Carlos','nada','3755213243',56);
+/*!40000 ALTER TABLE `jockey` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-20 20:14:24
+-- Dump completed on 2023-10-23 16:51:58

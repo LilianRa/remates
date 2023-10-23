@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
 import { Menu } from "../../menu";
 import Swal from 'sweetalert2' 
+import { Vigia } from "../../Vigia";
 
 export function Jockey(){
     const [jockey, setJockey]=useState([])
+    
+    const [usuario,setUsuario]=useState([])
 
     const [idjockey, setIdJockey]=useState('')
     const [nombre, setNombre] = useState('')
@@ -60,8 +63,8 @@ export function Jockey(){
     }
     
     useEffect(()=>{
-        const datos_usuario = JSON.parse(localStorage.getItem('usuario'));
-        ver_permisos(datos_usuario.id_rol);
+        // const datos_usuario = JSON.parse(localStorage.getItem('usuario'));
+        // ver_permisos(datos_usuario.id_rol);
         API.getJockey().then(setJockey)
     }, [])
 
@@ -99,28 +102,28 @@ export function Jockey(){
         setPeso('')
               
     }
-    const ver_permisos =  async (id_rol)=>{
-        const menu='/usuarios';
-        const respuesta= await API.ver_permisos({id_rol, menu });
-        if(respuesta.status){
-            setPermisoDenegado(true)
-        }else{
-            setPermisoDenegado(false)
-        }
-    }
+    // const ver_permisos =  async (id_rol)=>{
+    //     const menu='/usuarios';
+    //     const respuesta= await API.ver_permisos({id_rol, menu });
+    //     if(respuesta.status){
+    //         setPermisoDenegado(true)
+    //     }else{
+    //         setPermisoDenegado(false)
+    //     }
+    // }
    
     
     return(
         <>
         
         <Menu/>
-        
-        {
+        <Vigia/>
+        {/* {
         !permisoDenegado? 
             <div className="alert alert-warning" role="alert">
             No tiene  permiso para acceder a esta opción
             </div>
-            :<>
+            :<> */}
         <table class="table table-striped">
         <thead>
             <tr>
@@ -242,8 +245,8 @@ export function Jockey(){
                 </div>
             </div>
         </div>
-        </>
-        }
+        
+        
         
         </>
     )

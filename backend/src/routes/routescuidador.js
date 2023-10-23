@@ -73,46 +73,66 @@ router.get('/cuidador/:idcuidador', (req , res)=>{
 //URL /cuidador/
 //parametros : en el cuerpo(body) 
     // cuidador, idlocalidad
-  
-router.post('/cuidador', bodyParser.json(), (req , res)=>{
-    const { nombre, idlocalidad }  = req.body
+    router.post('/cuidador', bodyParser.json(), (req , res)=>{
+        const { nombre,idlocalidad }  = req.body
+        
+        mysqlConnect.query('INSERT INTO cuidador (nombre,idlocalidad) VALUES (?,?)', [nombre,idlocalidad], (error, registros)=>{
+           if(error){
+               console.log('Error en la base de datos', error)
+           }else{
+                res.json({
+                status:true,
+                mensaje: "El insert se realizo correctamente"
+                })
+           }
+       })
+    })
+     
 
-    if(!nombre){
-        res.json({
-            status:false,
-            mensaje: "El nombre del cuidador es un campo obligatorio"
-        })
-    }
-    if(!idlocalidad){
-        res.json({
-            status:false,
-            mensaje: "El codigo de localidad  es un campo obligatorio"
-        })
-    }
+
+
+
+
+
+// router.post('/cuidador', bodyParser.json(), (req , res)=>{
+//     const { nombre, idlocalidad }  = req.body
+
+//     if(!nombre){
+//         res.json({
+//             status:false,
+//             mensaje: "El nombre del cuidador es un campo obligatorio"
+//         })
+//     }
+//     if(!idlocalidad){
+//         res.json({
+//             status:false,
+//             mensaje: "El codigo de localidad  es un campo obligatorio"
+//         })
+//     }
     // if(!idcuidador){
     //     res.json({
     //         status:false,
     //         mensaje: "El codigo de cuidador es un campo obligatorio"
     //     })
-    // if(idcuidador){
+    // if(nombre){
     //     res.json({
     //         status:false,
     //         mensaje:"el codigo ingresado ya existe"
     //     })
-    // }
+    
     //           }
-            mysqlConnect.query('INSERT INTO cuidador (nombre, idlocalidad) VALUES (?,?,)', [ nombre, idlocalidad], (error, registros)=>{
-                    if(error){
-                        console.log('Error en la base de datos', error)
-                    }else{
-                    res.json({
-                        status:true,
-                        mensaje: "El registro se grabo correctamente"
-                    })
-                    }
-                })
+    //         mysqlConnect.query('INSERT INTO cuidador (nombre, idlocalidad) VALUES (?,?,)', [ nombre, idlocalidad], (error, registros)=>{
+    //                 if(error){
+    //                     console.log('Error en la base de datos', error)
+    //                 }else{
+    //                 res.json({
+    //                     status:true,
+    //                     mensaje: "El registro se grabo correctamente"
+    //                 })
+    //                 }
+    //             })
                        
-            })         
+    //         })         
             
 
 // traer los  datos del equipo por el ID

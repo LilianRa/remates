@@ -16,29 +16,38 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `jockey`
+-- Table structure for table `carrera`
 --
 
-DROP TABLE IF EXISTS `jockey`;
+DROP TABLE IF EXISTS `carrera`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jockey` (
+CREATE TABLE `carrera` (
+  `idcarreras` int NOT NULL,
+  `idcaballo` int NOT NULL,
+  `idcuidador` int NOT NULL,
   `idjockey` int NOT NULL,
-  `nombre` varchar(50) DEFAULT NULL,
-  `direccion` varchar(100) DEFAULT NULL,
-  `Telefono` varchar(16) DEFAULT NULL,
-  `peso` int DEFAULT NULL,
-  PRIMARY KEY (`idjockey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `peso` int NOT NULL,
+  `distancia` int NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`idcarreras`,`idcaballo`,`fecha`),
+  KEY `FK_cuidador_idx` (`idcuidador`),
+  KEY `FK_jockey_idx` (`idjockey`),
+  KEY `FK_caballo_idx` (`idcaballo`),
+  CONSTRAINT `FK_caballo` FOREIGN KEY (`idcaballo`) REFERENCES `caballo` (`idcaballo`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `FK_cuidador` FOREIGN KEY (`idcuidador`) REFERENCES `cuidador` (`idcuidador`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `FK_jockey` FOREIGN KEY (`idjockey`) REFERENCES `jockey` (`idjockey`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='se cargarn aqui las carreras del dia\n';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `jockey`
+-- Dumping data for table `carrera`
 --
 
-LOCK TABLES `jockey` WRITE;
-/*!40000 ALTER TABLE `jockey` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jockey` ENABLE KEYS */;
+LOCK TABLES `carrera` WRITE;
+/*!40000 ALTER TABLE `carrera` DISABLE KEYS */;
+INSERT INTO `carrera` VALUES (2,1,1,1,250,350,'2023-10-13');
+/*!40000 ALTER TABLE `carrera` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-20 20:14:24
+-- Dump completed on 2023-10-23 16:51:58

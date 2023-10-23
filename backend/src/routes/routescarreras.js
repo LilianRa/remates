@@ -31,7 +31,7 @@ router.get('/carreras',verificarToken, (req, res)=>{
 router.put('/cambiar_estado_carrera/:idcarreras', bodyParser.json(), (req , res)=>{
     const { actualizar }  = req.body
     const { idcarreras } = req.params
-    mysqlConnect.query('UPDATE carrera SET estado = ?  WHERE idcarrera = ?', [actualizar, idcarreras], (error, registros)=>{
+    mysqlConnect.query('UPDATE carrera SET estado = ?  WHERE idcarreras = ?', [actualizar, idcarreras], (error, registros)=>{
         if(error){
             console.log('Error en la base de datos', error)
         }else{
@@ -42,40 +42,7 @@ router.put('/cambiar_estado_carrera/:idcarreras', bodyParser.json(), (req , res)
         }
     })
 })
-// listar de carreras con filtros
-// metodo POST
-//URL /carrera_filtrado
-//parametros : 
-    // filtros: idcarrera, nombre_caballo, nombre_jockey , peso, distancia
-// router.post('/carreras_filtrado', bodyParser.json(),  (req , res)=>{
-//     const { id_modelo, nombre_equipo, id_ubicacion, id_tipo_equipo, serial } = req.body
-//     // console.log(id_modelo)
-//     let my_query ="SELECT e.id_equipo, e.id_modelo ,e.nombre, te.nombre tipo_equipo ,concat_ws(' - ', m.nombre, f.nombre) modelo_fabricante, u.nombre lugar_ubicacion, e.serial, e.estado    FROM equipos AS e    INNER JOIN tipos_equipo AS te ON te.id_tipo_equipo=e.id_tipo_equipo  LEFT JOIN modelos AS m ON m.id_modelo=e.id_modelo LEFT JOIN ubicaciones AS u ON u.id_ubicacion=e.id_ubicacion LEFT JOIN fabricantes AS f ON f.id_fabricante = m.id_fabricante WHERE 1 ";
-    
-//     if(id_modelo){
-//         my_query = my_query + ` AND e.id_modelo='${id_modelo}'`;
-//     }
-//     if(id_ubicacion){
-//         my_query = my_query + ` AND e.id_ubicacion='${id_ubicacion}'`;
-//     }
-//     if(nombre_equipo){
-//         my_query = my_query + ` AND e.nombre like '%${nombre_equipo}%'`;
-//     }
-//     if(id_tipo_equipo){
-//         my_query = my_query + ` AND e.id_tipo_equipo='${id_tipo_equipo}'`;
-//     }
-//     if(serial){
-//         my_query = my_query + ` AND e.serial like '%${serial}%'`;
-//     }
 
-    // mysqlConnect.query(my_query, (error, registros)=>{
-    //     if(error){
-    //         console.log('Error en la base de datos', error)
-    //     }else{
-    //         res.json(registros)
-    //     }
-    // })
-// })
 ////////////////////insert de equipos
 
 // metodo POST
@@ -84,14 +51,14 @@ router.put('/cambiar_estado_carrera/:idcarreras', bodyParser.json(), (req , res)
     // idcaballo,idcuidador,idjockey,peso,distancia,fecha
 
 router.post('/carreras', bodyParser.json(), (req , res)=>{
-    const { idcaballo, idcuidador, idjockey, peso, distancia,fecha }  = req.body
+    const { idcarreras,idcaballo, idcuidador, idjockey, peso, distancia,fecha }  = req.body
     if(!idcaballo){
         res.json({
             status:false,
             mensaje: "El id del caballo es un campo obligatorio"
         })
     }
-    if(!id_cuidador){
+    if(!idcuidador){
         res.json({
             status:false,
             mensaje: "El id del cuidador es un campo obligatorio"
@@ -124,13 +91,13 @@ router.post('/carreras', bodyParser.json(), (req , res)=>{
         })
         
     }
-    mysqlConnect.query('INSERT INTO equipos (nombre, id_modelo, id_tipo_equipo, id_ubicacion, serial ) VALUES (?,?,?,?,?)', [nombre_equipo, id_modelo, id_tipo_equipo, id_ubicacion, serial ], (error, registros)=>{
+    mysqlConnect.query('INSERT INTO carrera (idcarreras,idcaballo,idcuidador,idjockey,peso,distancia,fecha ) VALUES (?,?,?,?,?,?,?)', [idcarreras,idcaballo,idcuidador,idjockey,peso,distancia,fecha], (error, registros)=>{
         if(error){
             console.log('Error en la base de datos', error)
         }else{
         res.json({
             status:true,
-            mensaje: "El registro se grabo correctamente"
+            mensaje: "La inserción se realizó correctamente"
         })
         }
     })
@@ -194,12 +161,7 @@ router.get('/carreras/:idcarreras', (req , res)=>{
                 mensaje: "El peso del jockey es un  equipo es un campo obligatorio"
             })
         }
-        if(!peso){
-            res.json({
-                status:false,
-                mensaje: "El peso del jockey  es un campo obligatorio"
-            })
-        }
+        
         if(!distancia){
             res.json({
                 status:false,
@@ -244,33 +206,24 @@ router.get('/carreras/:idcarreras', (req , res)=>{
 //URL /carreras/:idcarreras
 //parametros : 
     // y el parametro que vamos a borrar logicamente ->id_equipo
-router.delete('/carreras/:idcarreras', bodyParser.json(), (req , res)=>{
-    const { idcarreras } = req.params
-    mysqlConnect.query('SELECT * FROM carrera WHERE idcarreras=?', [idcarreras], (error, registros)=>{
-        if(error){
-            console.log('Error en la base de datos', error)
-        }else{
-            if(registros.length>0){
-                mysqlConnect.query('UPDATE carrera SET estado = "B"  WHERE idcarreras = ?', [idcarreras], (error, registros)=>{
-                    if(error){
-                        console.log('Error en la base de datos', error)
-                    }else{
-                        res.json({
-                            status:true,
-                            mensaje:"El registro " +idcarreras+ " se dio de baja correctamente" 
-                        })
-                    }
-                })
-            }else{
+    router.delete('/carreras/:idcarreras', bodyParser.json(), (req , res)=>{
+        const { idcarreras } = req.params
+        mysqlConnect.query('DELETE FROM carrera WHERE idcarreras = ?', [idcarreras], (error, registros)=>{
+           if(error){
+               
                 res.json({
-                    status:false,
-                    mensaje:"El ID de la carrera no existe" 
-                })
-            }
-            
-        }
-    })  
-})
+                status:false,
+                mensaje: error
+            })
+           }else{
+             res.json({
+                status:true,
+                mensaje: 'La eliminacion del registro ' +idcarreras+ ' se realizo correctamente'
+            })
+              
+           }
+       })
+    })
 
 function verificarToken(req, res, next){
     const bearer= req.headers['authorization'];

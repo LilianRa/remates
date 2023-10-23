@@ -16,37 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `carrera`
+-- Table structure for table `menu`
 --
 
-DROP TABLE IF EXISTS `carrera`;
+DROP TABLE IF EXISTS `menu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `carrera` (
-  `idcarreras` int NOT NULL,
-  `idcaballo` int NOT NULL,
-  `idcuidador` int NOT NULL,
-  `idjockey` int NOT NULL,
-  `peso` int NOT NULL,
-  `distancia` int NOT NULL,
-  `fecha` date NOT NULL,
-  PRIMARY KEY (`idcarreras`,`idcaballo`,`idcuidador`,`idjockey`,`fecha`),
-  KEY `FK_caballo_idx` (`idcaballo`),
-  KEY `FK_cuidador_idx` (`idcuidador`),
-  KEY `FK_jockey_idx` (`idjockey`),
-  CONSTRAINT `FK_caballo` FOREIGN KEY (`idcaballo`) REFERENCES `caballo` (`idcaballo`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `FK_cuidador` FOREIGN KEY (`idcuidador`) REFERENCES `cuidador` (`idcuidador`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `FK_jockey` FOREIGN KEY (`idjockey`) REFERENCES `jockey` (`idjockey`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='se cargarn aqui las carreras del dia\n';
+CREATE TABLE `menu` (
+  `id_menu` int NOT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `href` varchar(45) DEFAULT NULL,
+  `id_rol` int DEFAULT NULL,
+  PRIMARY KEY (`id_menu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `carrera`
+-- Dumping data for table `menu`
 --
 
-LOCK TABLES `carrera` WRITE;
-/*!40000 ALTER TABLE `carrera` DISABLE KEYS */;
-/*!40000 ALTER TABLE `carrera` ENABLE KEYS */;
+LOCK TABLES `menu` WRITE;
+/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+INSERT INTO `menu` VALUES (1,'carreras','/carreras',1),(2,'caballos','/caballos',1),(3,'cuidador','/cuidador',2),(4,'Usuarios','/Usuarios',1),(5,'remates','/remates',1),(6,'remates','/remates',2),(7,'cuidador','/cuidador',1),(8,'localidad','/localidad',1),(9,'localidad','/localidad',2),(10,'jockey','/jockey',1),(11,'jockey','/jockey',2);
+/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-20 20:14:24
+-- Dump completed on 2023-10-23 16:51:58
