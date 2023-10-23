@@ -24,6 +24,8 @@ import { Localidad } from './componentes/Localidad/Localidad'
 import { EditCuidador } from './componentes/Cuidador/EditCuidador'
 import { Remates } from './componentes/remates/remates'
 import { Carreras } from './componentes/carreras/Carreras'
+import { AddRemates } from './componentes/remates/AddRemates'
+import { Jockey } from './componentes/jockey/Jockey'
 
 
 function App() {
@@ -44,6 +46,8 @@ function App() {
         <Route path='/addcuidador' element={<AddCuidador/>}></Route>
         <Route path='/carreras' element={<Carreras/>}></Route>
         <Route path='/agregarcaballo' element={<AddCaballo/>}></Route>
+        <Route path='/agregarremate' element={<AddRemates/>}></Route>
+        <Route path='/jockey' element={<Jockey/>}></Route>
         {/* <Route path='/editlocalidad/:idlocalidad' element={<EditLocalidad/>}></Route> */}
         <Route path='/agregarequipo' element={<AddEquipo/>}></Route>
         <Route path='/agregarmodelo' element={<AddModelo/>}></Route>

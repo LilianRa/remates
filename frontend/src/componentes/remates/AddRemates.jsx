@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as API from '../../servicios/servicios'
+
+
+
 export function AddRemates(){
+  const [remates, setRemates] = useState([]);
+  const [carrera, setCarreras] = useState([]);
+
     const [idcaballo, setIdCaballo] = useState('')
     const [fecha, setFecha] = useState('')
     const [mjugado, setMontoJugado] = useState('')
     const [macobrar, setMontoaCobrar] = useState('')
     const[idcarrera,setIdCarrera]=useState('')
-    const [remates, setRemates] = useState([])
+    
     const [mensaje, setMensaje] = useState('')
-    const [carrera, setCarreras] = useState([])
+   
 
     useEffect(()=>{
         API.getRemates().then(setRemates)
@@ -17,7 +23,7 @@ export function AddRemates(){
 
     const guardarRemates = async(event)=>{
         event.preventDefault();
-        const respuesta = await API.AddRemate({idcaballo, fecha,mjugado,macobrar,idcarrera});
+        const respuesta = await API.AddRemate({idremate,idcaballo,fecha,mjugado,macobrar,idcarrera});
         if(respuesta.status){
             setMensaje(respuesta.mensaje)
             setTimeout(()=>{
@@ -37,7 +43,18 @@ export function AddRemates(){
                 </div>
                 <div className="form-floating">
                   <input 
-                  type="text" 
+                  type="number" 
+                  value={idremate}
+                  onChange={(event)=>setIdRemates(event.target.value)}
+                  className="form-control" 
+                  placeholder="Id de caballo"
+                  />
+                  <label for="floatingInput">numero de remate</label>
+                </div>
+
+                <div className="form-floating">
+                  <input 
+                  type="number" 
                   value={idcaballo}
                   onChange={(event)=>setIdCaballo(event.target.value)}
                   className="form-control" 
@@ -47,7 +64,7 @@ export function AddRemates(){
                 </div>
                 <div className="form-floating">
                   <input 
-                  type="text" 
+                  type="date" 
                   value={fecha}
                   onChange={(event)=>setFecha(event.target.value)}
                   className="form-control" 
@@ -76,16 +93,17 @@ export function AddRemates(){
                   <label for="floatingInput">Monto a cobrar</label>
                 </div>
                 <div className="form-floating">
-                  
-                 <select onChange={(event)=>setIdCarrera(event.target.value)} className="form-control">
-                    {carrera.map((c)=>(
-                      
-                    <option value={c.idcarrera}>{c.idcaballo}{c.idcuidador} </option>
-                    ))}
-                 </select>
+                  <input 
+                  type="number" 
+                  value={idcarrera}
+                  onChange={(event)=>setIdCarrera(event.target.value)}
+                  className="form-control" 
+                  placeholder="Id Carrera"
+                  />
+                  <label for="floatingInput">Id carrera</label>
                 </div>
-               
-               
+                          
+                           
                 <button className="btn btn-primary" type="submit" >Guardar</button>
                 <Link to="/remates" >Volver</Link>
                 

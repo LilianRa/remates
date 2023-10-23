@@ -32,7 +32,7 @@ router.get('/remates', verificarToken,(req , res)=>{
 //URL /remates/:idremate
 //parametros : ninguno
 router.get('/remates/:idremate', (req , res)=>{
-    const { idcaballo } = req.params
+    const { idremate } = req.params
     mysqlConnect.query('SELECT * FROM remates WHERE idremate=?', [idremate], (error, registros)=>{
         if(error){
             console.log('Error en la base de datos', error)
@@ -69,25 +69,43 @@ router.get('/remates/:idremate', (req , res)=>{
 //    })
 // }
 // })
+
 router.post('/remates', bodyParser.json(), (req , res)=>{
-    const { idcaballo,fecha,mjugado,macobrar,idcarrera }  = req.body
-    jwt.verify(req.token, 'siliconKey', (error, valido)=>{
-        if(error){
-            res.sendStatus(403);
-        }else{
-            mysqlConnect.query('INSERT INTO remates (idcaballo,fecha,mjugado,macobrar,idcarrera) VALUES (?,?,?,?,?)', [idcaballo,fecha,mjugado,macobrar,idcarrera], (error, registros)=>{
-            if(error){
-                console.log('Error en la base de datos', error)
-            }else{
-                res.json({
-                    status:true,
-                    mensaje: "El registro se realizo correctamente"
-                    })
-            }
-        })
-        }
-    })
+    const { idremate,idcaballo,fecha,mjugado,macobrar,idcarrera }  = req.body
+  
+    mysqlConnect.query('INSERT INTO remates (idremate,idcaballo,fecha,mjugado,macobrar,idcarrera) VALUES (?,?,?,?,?,?)', [idremate,idcaballo,fecha,mjugado,macobrar,idcarrera], (error, registros)=>{
+       if(error){
+           console.log('Error en la base de datos', error)
+       }else{
+            res.json({
+            status:true,
+            mensaje: "El insert se realizo correctamente"
+            })
+       }
+   })
 })
+
+
+
+// router.post('/remates', bodyParser.json(), (req , res)=>{
+//     const { idcaballo,fecha,mjugado,macobrar,idcarrera,estado }  = req.body
+//     // jwt.verify(req.token, 'siliconKey', (error, valido)=>{
+//     //     if(error){
+//     //         res.sendStatus(403);
+//     //     }else{
+//             mysqlConnect.query('INSERT INTO remates (idcaballo,date_format(fecha,"%Y-%c-%d"),mjugado,macobrar,idcarrera,estado) VALUES (?,?,?,?,?,?)', [idcaballo,fecha,mjugado,macobrar,idcarrera,estado], (error, registros)=>{
+//             if(error){
+//                 console.log('Error en la base de datos', error)
+//             }else{
+//                 res.json({
+//                     status:true,
+//                     mensaje: "El registro se realizo correctamente"
+//                     })
+//             }
+//         })
+//         }
+    // })
+// })
 
 // ////////////////////edicion de remates
 // // metodo PUT
@@ -97,14 +115,18 @@ router.post('/remates', bodyParser.json(), (req , res)=>{
 //     // nombre
 //     // y el parametro que vamos a editar ->idremate
  router.put('/remates/:idremate', bodyParser.json(), (req , res)=>{
-     const { idcaballo,fecha,mjugado,macobrar,idcarrera }  = req.body
+     const { idcaballo , fecha, mjugado, macobrar, idcarrera }  = req.body
      const { idremate } = req.params
-    mysqlConnect.query('UPDATE remates SET idcaballo = ? ,fecha=?,mjugado=?,macobrar=?,idcarrera=? WHERE idremate = ?', [idcaballo,fecha,mjugado,macobrar,idcarrera], (error, registros)=>{
+    mysqlConnect.query('UPDATE remates SET idcaballo=?,fecha=?,mjugado=?,macobrar=?,idcarrera=? WHERE idremate =?', [idcaballo,fecha,mjugado,macobrar,idcarrera,idremate], (error, registros)=>{
        if(error){
            console.log('Error en la base de datos', error)
       }else{
-            res.send('La edicion de registro ' +idremate+ ' se realizo correctamente')
+        res.json({
+            status:true,
+            mensaje: "La edición de registro se realizo correctamente"
+            })
        }
+       
     })
 })
 

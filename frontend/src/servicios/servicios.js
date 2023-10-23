@@ -312,7 +312,7 @@ export async function getRemates(){
 }
 
 
-export async function getRematesByID(idremates){
+export async function getRematesByID(idremate){
     const token = JSON.parse(localStorage.getItem('token'));
     const Options={
         method:'GET',
@@ -321,11 +321,11 @@ export async function getRematesByID(idremates){
             Authorization: `Bearer ${token}`,
         }
     }
-    const respuesta = await fetch(`${URL}/remates/${idremates}`, Options)
+    const respuesta = await fetch(`${URL}/remates/${idremate}`, Options)
     const data= await respuesta.json();
     return data[0];
 }
-export async function EditRemates(datos, idremate){
+export async function EditRemate(datos, idremate){
         const token = JSON.parse(localStorage.getItem('token'));
         const Options={
             method:'PUT',
@@ -637,7 +637,7 @@ export async function ResetUsuariosByID(id_usuario){
     const respuesta = await fetch(`${URL}/resetpass/${id_usuario}`, Options)
     const data= await respuesta.json()
     return data;}
-//cominezo con carreras
+//comienzo con carreras
 
 export async function getCarreras(){
     const token = JSON.parse(localStorage.getItem('token'));
@@ -652,3 +652,85 @@ export async function getCarreras(){
     const data= await respuesta.json();
     return data
 }
+
+
+
+//inicio de jockey
+
+export async function getJockey(){
+    const token = JSON.parse(localStorage.getItem('token'));
+    const Options={
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+             Authorization: `Bearer ${token}`,
+        }
+    }
+    const respuesta = await fetch(`${URL}/jockey`, Options)
+    const data= await respuesta.json()
+
+    return data
+}
+
+
+
+
+
+
+
+export async function AddJockey(datos){
+    const Options={
+        method:'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    const respuesta = await fetch(`${URL}/jockey`, Options)
+    const data= await respuesta.json()
+    return data;
+}
+
+export async function deleteJockey(idjockey){
+    const Options={
+        method:'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    const respuesta = await fetch(`${URL}/jockey/${idjockey}`, Options)
+    const data= await respuesta.json()
+    return data;
+}
+
+
+
+export async function getJockeyByID(idjockey){
+    const token = JSON.parse(localStorage.getItem('token'));
+    const Options={
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
+    }
+    const respuesta = await fetch(`${URL}/jockey/${idjockey}`, Options)
+    const data= await respuesta.json();
+    return data[0];
+}
+
+export async function EditJockey(datos, idjockey){
+    const token = JSON.parse(localStorage.getItem('token'));
+    const Options={
+        method:'PUT',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
+    }
+    const respuesta = await fetch(`${URL}/jockey/${idjockey}`, Options)
+    const data= await respuesta.json()
+    return data;
+}
+

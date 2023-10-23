@@ -94,7 +94,7 @@ export function Ubicaciones(){
         <thead>
             <tr>
                 <th colspan="4">
-                <button  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" >Agregar Modal</button>
+                <button  class="btn btn-outline-primary  btn-sm"  data-bs-toggle="modal"  data-bs-target="#exampleModal" >Agregar </button>
                 </th>    
             </tr>
 
