@@ -96,6 +96,7 @@ export function Registro(){
                   <input 
                   type="number" 
                   value={dni}
+                  min="1"
                   onChange={(event)=>setDni(event.target.value)}
                   className="form-control" 
                   id="dni" 

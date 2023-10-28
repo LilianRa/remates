@@ -17,7 +17,7 @@ router.get('/remates', verificarToken,(req , res)=>{
         if(error){
             res.sendStatus(403);
         }else{
-            mysqlConnect.query('SELECT r.*, date_format(r.fecha,"%d-%m-%y") fecha_formateada FROM remates r', (error, registros)=>{
+            mysqlConnect.query('SELECT r.*, date_format(r.fecha,"%d-%m-%y") fecha_formateada FROM remates r order by("idcarreras,idremate")', (error, registros)=>{
                 if(error){
                     console.log('Error en la base de datos', error)
                 }else{
@@ -66,24 +66,32 @@ router.get('/remates/:idremate', (req , res)=>{
 //                     mensaje: "El insert se realizo correctamente"
 //                     })
 //             }
-//    })
-// }
+        
+//    )
+//             }
 // })
 
 router.post('/remates', bodyParser.json(), (req , res)=>{
     const { idremate,idcaballo,fecha,mjugado,macobrar,idcarrera }  = req.body
-  
-    mysqlConnect.query('INSERT INTO remates (idremate,idcaballo,fecha,mjugado,macobrar,idcarrera) VALUES (?,?,?,?,?,?)', [idremate,idcaballo,fecha,mjugado,macobrar,idcarrera], (error, registros)=>{
-       if(error){
-           console.log('Error en la base de datos', error)
-       }else{
-            res.json({
-            status:true,
-            mensaje: "El insert se realizo correctamente"
-            })
-       }
-   })
-})
+    jwt.verify(req.token, 'siliconKey', (error, valido)=>{
+        if(error){
+            res.sendStatus(403);
+        }else{
+                mysqlConnect.query('INSERT INTO remates (idremate,idcaballo,fecha,mjugado,macobrar,idcarrera) VALUES (?,?,?,?,?,?)', [idremate,idcaballo,fecha,mjugado,macobrar,idcarrera], (error, registros)=>{
+                if(error){
+                    console.log('Error en la base de datos', error)
+                }else{
+                        res.json({
+                        status:true,
+                        mensaje: "El insert se realizo correctamente"
+                    })
+                    
+                    }
+
+                })
+            }
+        })
+    });
 
 
 

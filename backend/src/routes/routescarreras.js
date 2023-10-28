@@ -16,7 +16,7 @@ router.get('/carreras',verificarToken, (req, res)=>{
         if(error){
             res.sendStatus(403);
         }else{
-            mysqlConnect.query('SELECT c.*, date_format(c.fecha,"%d-%m-%y")fecha_formateada FROM  carrera c order by("c.idcarreras,c.idcaballo") ', (error, registros)=>{
+            mysqlConnect.query('SELECT c.*,ca.nombre nombre_caballo,cu.nombre nombre_cuidador, date_format(c.fecha,"%d-%m-%y")fecha_formateada FROM  carrera c inner join caballo ca on c.idcaballo=ca.idcaballo inner join cuidador cu on c.idcuidador=cu.idcuidador order by("c.idcarreras,c.idcaballo")  ', (error, registros)=>{
             if(error){
                 console.log('Error en la base de datos', error)
             }else{
@@ -28,28 +28,14 @@ router.get('/carreras',verificarToken, (req, res)=>{
 });
 
 
-router.put('/cambiar_estado_carrera/:idcarreras', bodyParser.json(), (req , res)=>{
-    const { actualizar }  = req.body
-    const { idcarreras } = req.params
-    mysqlConnect.query('UPDATE carrera SET estado = ?  WHERE idcarreras = ?', [actualizar, idcarreras], (error, registros)=>{
-        if(error){
-            console.log('Error en la base de datos', error)
-        }else{
-            res.json({
-                status:true,
-                mensaje: "El cambio de estado se realizo correctamente"
-                })
-        }
-    })
-})
-
-////////////////////insert de equipos
 
 // metodo POST
 //URL /carreras/
 //parametros : en el cuerpo(body) 
     // idcaballo,idcuidador,idjockey,peso,distancia,fecha
 
+
+ 
 router.post('/carreras', bodyParser.json(), (req , res)=>{
     const { idcarreras,idcaballo, idcuidador, idjockey, peso, distancia,fecha }  = req.body
     if(!idcaballo){
@@ -89,7 +75,6 @@ router.post('/carreras', bodyParser.json(), (req , res)=>{
             status:false,
             mensaje: "La fecha es un campo obligatorio"
         })
-        
     }
     mysqlConnect.query('INSERT INTO carrera (idcarreras,idcaballo,idcuidador,idjockey,peso,distancia,fecha ) VALUES (?,?,?,?,?,?,?)', [idcarreras,idcaballo,idcuidador,idjockey,peso,distancia,fecha], (error, registros)=>{
         if(error){
@@ -108,10 +93,9 @@ router.post('/carreras', bodyParser.json(), (req , res)=>{
 //URL /carreras/:idcarreras
 //parametros : idcarreras
 router.get('/carreras/:idcarreras', (req , res)=>{
-    
     const { idcarreras } = req.params
     console.log('entra aqui', idcarreras)
-    mysqlConnect.query('SELECT * FROM carrera WHERE idcarreras=?', [idcarreras], (error, registros)=>{
+    mysqlConnect.query('SELECT c.*,DATE_FORMAT(fecha,"%Y-%m-%d")fecha_sin_formato FROM carrera c WHERE c.idcarreras=?', [idcarreras], (error, registros)=>{
         if(error){
             res.json({
                 status:false
@@ -137,6 +121,7 @@ router.get('/carreras/:idcarreras', (req , res)=>{
         const { idcarreras } = req.params
         const { idcaballo, idcuidador, idjockey, peso, distancia,fecha } = req.body
         console.log("esto es el body",req.body)
+        console.log(" entro en editar metodo put")
         if(!idcaballo){
             res.json({
                 status:false,
@@ -174,8 +159,6 @@ router.get('/carreras/:idcarreras', (req , res)=>{
                 mensaje: "La fecha es un campo obligatorio"
             })
         }
-
-
         mysqlConnect.query('SELECT * FROM carrera WHERE idcarreras=?', [idcarreras], (error, registros)=>{
             if(error){
                 console.log('Error en la base de datos', error)
@@ -210,7 +193,6 @@ router.get('/carreras/:idcarreras', (req , res)=>{
         const { idcarreras } = req.params
         mysqlConnect.query('DELETE FROM carrera WHERE idcarreras = ?', [idcarreras], (error, registros)=>{
            if(error){
-               
                 res.json({
                 status:false,
                 mensaje: error

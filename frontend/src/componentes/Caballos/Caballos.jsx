@@ -3,7 +3,7 @@ import * as API from '../../servicios/servicios'
 import './Caballos.css'
 import { Link } from "react-router-dom";
 
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 import { Vigia } from "../../Vigia";
 
 export function Caballo(){

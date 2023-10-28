@@ -50,20 +50,16 @@ export function Sidebar(){
                             {menus.map((m)=>(
                                 <li className="nav-item">
                                     <Link  className="nav-link active" aria-current="page"  to={m.href}>{m.nombre}</Link>
-                                
                                 </li>
                             ))}
                                 {/* <li className="nav-item">
                                     <Link  className="nav-link active" aria-current="page"  to='../generador'>Impresión</Link>
                                 
                                 </li> */}
-                                
                             <li className="nav-link active"  aria-current="page" ><b>{user}</b></li>
-                            
                             <li><button  class="btn btn-primary" onClick={salir}>Cerrar Session</button></li>
                             </ul>
-          
-        </div>
+                  </div>
       </div>
     </div>
 
@@ -74,7 +70,7 @@ export function Sidebar(){
           <div>
              <h2>Carreras</h2>
             <link rel="stylesheet" href="style.css"/> 
-                    <div className="container">
+                    <div className="container-scroll">
                         <div className="row">
                           <div className="col">
                             <img className="img-fluit" src="./public/caballos.jpg"/>

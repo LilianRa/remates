@@ -37,7 +37,7 @@ export function Menu(){
             
         <nav class="navbar navbar-expand-sm navbar-dark navbar-dark bg-primary"aria-label="Third navbar example">
                 <div className="container-fluid">
-                <img src={reactLogo} className="logo react" alt="React logo" />
+                {/* <img src={reactLogo} className="logo react" alt="React logo" /> */}
                 {/* <img src={icocaballo} className="logo caballo" alt="" /> */}
                  
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

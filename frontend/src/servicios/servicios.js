@@ -562,7 +562,7 @@ export async function getCarreraByID(idcarreras){
     return data[0];
 }
 
-export async function EditCarrera(datos, idcarreras){
+export async function EditCarrera(datos,idcarreras){
     const token = JSON.parse(localStorage.getItem('token'));
     const Options={
         method:'PUT',

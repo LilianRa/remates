@@ -51,19 +51,20 @@ export function Remates(){
             }
             return;
         }else{
-            event.preventDefault();
-            const respuesta = await API.AddRemate({idremate,idcaballo,fecha,mjugado,macobrar,idcarrera,estado});
+            const respuesta = await API.AddRemate({idremate,idcaballo,mjugado,macobrar,idcarrera,estado,fecha})
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
                 toastBootstrap.show()
-    
                 setTimeout(()=>{
+                    setMensaje('')
                     window.location.href='/remates'
-                    }, 5000)
+                    // API.getUsuarios().then(setUsuarios)
+                    }, 2500)
             }
             return;
-        }
+        
+        } 
 
     }   
     useEffect(()=>{
@@ -151,7 +152,7 @@ export function Remates(){
         <>
         <Menu/>
         <Vigia/>
-        
+        <div class="container">
         <table class="table table-striped">
         <thead>
             <tr>
@@ -166,12 +167,12 @@ export function Remates(){
                 </th>
             </tr>
             <tr>
+                <td>Id carrera</td>
                 <td>Id remate</td>
                 <td>Id caballo</td>
                 <td>Fecha</td>
                 <td>Monto jugado</td>
                 <td>Monto a cobrar</td>
-                <td>Id carrera</td>
                 <td>Estado</td>
                 <td colspan="4">Acciones</td>
             </tr>
@@ -179,16 +180,14 @@ export function Remates(){
         <tbody>
             {remates.map((remates)=>(
                 <tr>
-                 
+                 <td >{remates.idcarrera}</td>
                 <td >{remates.idremate}</td>   
                 <td >{remates.idcaballo}</td>
                 <td >{remates.fecha_formateada}</td>    
                 <td >{remates.mjugado}</td>  
                 <td >{remates.macobrar}</td>
-                <td >{remates.idcarrera}</td>  
                 <td >{remates.estado}</td>
-                   
-                     
+                                 
                 <td >
                 
                  {(remates.estado=="A")?
@@ -320,7 +319,7 @@ export function Remates(){
                 </div>
             </div>
         </div>
-           
+           </div>
         
          </>
     )

@@ -29,6 +29,9 @@ import { Jockey } from './componentes/jockey/Jockey'
 import { Usuarios } from './componentes/usuario/Usuarios'
 
 
+
+
+
 function App() {
 
   return (
@@ -39,8 +42,6 @@ function App() {
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/principal' element={<Principal/>}></Route>
         <Route path='/registro' element={<Registro/>}></Route>
-       
-        
         <Route path='/usuarios' element={<Usuarios/>}></Route>
         <Route path='/localidad' element={<Localidad/>}></Route>
         <Route path='/cuidador' element={<Cuidador/>}></Route>

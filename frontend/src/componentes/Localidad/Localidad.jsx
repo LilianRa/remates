@@ -83,7 +83,7 @@ export function Localidad(){
             if(borrado.status){
                 window.location.reload(true)
             }else{
-                alert("No se puede eliminar porque ocurrio el error");
+                alert("No se puede eliminar referenciado en otra tabla");
             }
         }
         
