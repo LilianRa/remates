@@ -4,7 +4,7 @@ import './Cuidador.css'
 import { Link } from "react-router-dom";
 
 import { Vigia } from "../../Vigia";
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 
 export function Cuidador(){
     const [cuidador, setCuidador]=useState([])
@@ -28,7 +28,7 @@ export function Cuidador(){
     const guardarCuidador = async(event)=>{
         event.preventDefault();
         if(idcuidador){
-            const respuesta = await API.EditCuidador({nombre,idlocalidad}, idcuidador)
+            const respuesta = await API.EditCuidador({nombre,idlocalidad,estado}, idcuidador)
             if(respuesta.status){
                 setMensaje(respuesta.mensaje)
                 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -90,6 +90,7 @@ export function Cuidador(){
         console.log(datos_cuidador)
         setNombre(datos_cuidador.nombre)
         setIdLocalidad(datos_cuidador.idlocalidad)
+        setEstado(datos_cuidador.estado)
      
     }
 
@@ -109,8 +110,9 @@ export function Cuidador(){
 
             <tr>
                <td>IdCuidador</td>
-                <td>Cuidador</td>
-                <td>Localidad</td>
+               <td >Nombre Cuidador</td>
+                <td>Id Localidad</td>
+                <td>Nombre Localidad</td>
                 <td>Estado</td>
                 <td colspan="2">Acciones</td>
             </tr>
@@ -120,8 +122,10 @@ export function Cuidador(){
                 <tr>
                 <td >{cuidador.idcuidador}</td> 
                 <td >{cuidador.nombre}</td> 
-                <td >{cuidador.idlocalidad}</td>   
+                <td >{cuidador.idlocalidad}</td>
+                <td >{cuidador.nombre_localidad}</td> 
                 <td >{cuidador.estado}</td>
+                
                 <td >
                     {/* <Link to={`/editcuidador/${cuidador.idcuidador}`} ><button class="btn btn-warning btn-sm">Editar Link</button></Link> */}
                     <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, cuidador.idcuidador)} class="btn btn-outline-warning btn-sm">Editar</button>
@@ -160,7 +164,7 @@ export function Cuidador(){
                     <label for="floatingInput">Id cuidador</label>
                     </div> */}
                     <div className="form-floating">
-                    <input 
+                    <input required
                     type="text" 
                     value={nombre}
                     onChange={(event)=>setNombre(event.target.value)}

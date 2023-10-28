@@ -17,7 +17,7 @@ router.get('/remates', verificarToken,(req , res)=>{
         if(error){
             res.sendStatus(403);
         }else{
-            mysqlConnect.query('SELECT * FROM remates', (error, registros)=>{
+            mysqlConnect.query('SELECT r.*, date_format(r.fecha,"%d-%m-%y") fecha_formateada FROM remates r', (error, registros)=>{
                 if(error){
                     console.log('Error en la base de datos', error)
                 }else{
@@ -33,7 +33,7 @@ router.get('/remates', verificarToken,(req , res)=>{
 //parametros : ninguno
 router.get('/remates/:idremate', (req , res)=>{
     const { idremate } = req.params
-    mysqlConnect.query('SELECT * FROM remates WHERE idremate=?', [idremate], (error, registros)=>{
+    mysqlConnect.query('SELECT r.*, DATE_FORMAT(r.fecha,"%y-%m-%d")fecha_sin_formato FROM remates r WHERE r.idremate=?', [idremate], (error, registros)=>{
         if(error){
             console.log('Error en la base de datos', error)
         }else{

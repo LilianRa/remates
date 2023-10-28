@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 import Swal from 'sweetalert2' 
 import { Vigia } from "../../Vigia";
 
@@ -182,7 +182,7 @@ export function Jockey(){
                     
                                  
                 <div className="form-floating">
-                  <input 
+                  <input  required
                   type="text" 
                   value={nombre}
                   onChange={(event)=>setNombre(event.target.value)}
@@ -192,7 +192,7 @@ export function Jockey(){
                   <label for="nombre">Jockey</label>
                 </div>
                 <div className="form-floating">
-                  <input 
+                  <input required
                   type="text" 
                   value={direccion}
                   onChange={(event)=>setDireccion(event.target.value)}
@@ -202,7 +202,7 @@ export function Jockey(){
                   <label for="nombre">Direccion</label>
                 </div>
                 <div className="form-floating">
-                  <input 
+                  <input  required
                   type="text" 
                   value={telefono}
                   onChange={(event)=>setTelefono(event.target.value)}
@@ -212,9 +212,11 @@ export function Jockey(){
                   <label for="nombre">Telefono</label>
                 </div>
                 <div className="form-floating">
-                  <input 
+                  <input required
                   type="number" 
                   value={peso}
+                  min="40"
+                  max="65"
                   onChange={(event)=>setPeso(event.target.value)}
                   className="form-control" 
                   

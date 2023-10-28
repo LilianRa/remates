@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 import { Vigia } from "../../Vigia";
 
  export function Carreras(){
@@ -25,7 +25,7 @@ import { Vigia } from "../../Vigia";
     const toastTrigger = document.getElementById('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast')
 
-    var num_carrera=setIdCarreras
+    
     
     if (toastTrigger) {
         const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -76,8 +76,7 @@ import { Vigia } from "../../Vigia";
         API.getJockey().then(setJockey)
         
             
-    }, []
-    )
+    }, [])
 
 
     const eliminar = async(idcarreras)=>{
@@ -85,7 +84,6 @@ import { Vigia } from "../../Vigia";
             console.log('este es mi codigo:'+idcarreras)
             const borrado = await API.deleteCarrera(idcarreras);
             if(borrado.status){
-
                 window.location.reload(true)
             }else{
                 alert("No se puede eliminar porque ocurrio el error");
@@ -106,7 +104,7 @@ import { Vigia } from "../../Vigia";
         setIdJockey(datos_carrera.idjockey)
         setPeso(datos_carrera.peso)
         setDistancia(datos_carrera.distancia)
-        setFecha(datos_carrera.fecha)
+        setFecha(datos_carrera.fecha_sin_formato)
     }
 
     const limpiarModal = async ()=>{
@@ -156,7 +154,7 @@ import { Vigia } from "../../Vigia";
                 <td >{ca.idjockey}</td>
                 <td >{ca.peso}</td>
                 <td >{ca.distancia}</td>
-                <td >{ca.fecha}</td>
+                <td >{ca.fecha_formateada}</td>
                 <td >
                     {/* <Link to={`/editcaballo/${caballo.idcaballo}`} ><button class="btn btn-warning btn-sm">Editar Link</button></Link> */}
                     <button   data-bs-toggle="modal"  data-bs-target="#exampleModal" onClick={(event)=>editar_registro(event, ca.idcarreras)} class="btn btn-outline-warning btn-sm"><i class="bi bi-pencil"></i>Editar</button>
@@ -189,9 +187,11 @@ import { Vigia } from "../../Vigia";
                     <input required
                     type="number" 
                     value={idcarreras}
+                    min="1"
                     onChange={(event)=>setIdCarreras(event.target.value)}
                     className="form-control" 
                     placeholder="Numero de carrera"
+                    id="ncarrera"
                     />
                     <label for="floatingInput">Numero de carrera</label>
                     </div>
@@ -233,9 +233,11 @@ import { Vigia } from "../../Vigia";
                     <input required
                     type="number" 
                     value={peso}
+                    min="1"
                     onChange={(event)=>setPeso(event.target.value)}
                     className="form-control" 
                     placeholder="Peso"
+                    id="peso"
                    
                     />
                     <label for="floatingInput">Peso del jockey</label>
@@ -244,9 +246,11 @@ import { Vigia } from "../../Vigia";
                     <input required
                     type="number" 
                     value={distancia}
+                    min="1"
                     onChange={(event)=>setDistancia(event.target.value)}
                     className="form-control" 
                     placeholder="Distancia"
+                    id="distancia"
                    
                     />
                     <label for="floatingInput">Distancia</label>
@@ -259,6 +263,7 @@ import { Vigia } from "../../Vigia";
                     onChange={(event)=>setFecha(event.target.value)}
                     className="form-control" 
                     placeholder="Fecha"
+                    id="fecha"
                    
                     />
                     <label for="floatingInput">Fecha</label>

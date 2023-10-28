@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import reactLogo from './assets/react.svg'
+// import icocaballo from './assets/icono caballo.jpg'
 import './Menu.css';
 import { Link } from "react-router-dom";
 import * as API from './servicios/servicios'
@@ -37,6 +38,8 @@ export function Menu(){
         <nav class="navbar navbar-expand-sm navbar-dark navbar-dark bg-primary"aria-label="Third navbar example">
                 <div className="container-fluid">
                 <img src={reactLogo} className="logo react" alt="React logo" />
+                {/* <img src={icocaballo} className="logo caballo" alt="" /> */}
+                 
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
@@ -45,14 +48,14 @@ export function Menu(){
                             {menus.map((m)=>(
                                 <li className="nav-item">
                                     <Link  className="nav-link active" aria-current="page"  to={m.href}>{m.nombre}</Link>
-                                
+                                    
                                 </li>
                             ))}
                                 {/* <li className="nav-item">
                                     <Link  className="nav-link active" aria-current="page"  to='../generador'>Generador</Link>
                                 
                                 </li> */}
-                            <li className="nav-link active"  aria-current="page" >{user}</li>
+                            <li className="nav-link active"  aria-current="page" ><b>{user}</b></li>
                             <li><button  class="btn btn-secondary" onClick={salir}>Cerrar Session</button></li>
                             </ul>
                     </div>

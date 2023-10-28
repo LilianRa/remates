@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 import Swal from 'sweetalert2' 
 import { Vigia } from "../../Vigia";
 
@@ -180,7 +180,7 @@ export function Localidad(){
                     
                                  
                 <div className="form-floating">
-                  <input 
+                  <input required
                   type="text" 
                   value={nombre}
                   onChange={(event)=>setNombre(event.target.value)}

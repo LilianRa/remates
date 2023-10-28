@@ -70,7 +70,7 @@ const ingresar = async(event)=>{
                 </div>
                
                 <button className="btn btn-primary" type="submit" >Ingresar</button>
-                <p className="mt-5 mb-3 text-body-secondary letra_roja"> En el caso de no tener cuenta <Link to="/registro">Registrarse</Link></p>
+                <p className="mt-5 mb-3 text-body-secondary letra_roja"> En el caso de no tener cuenta <Link to="/registro"><b>Registrarse</b></Link></p>
               </form>
           </main>
               

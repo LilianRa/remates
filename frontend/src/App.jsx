@@ -15,7 +15,7 @@ import { EditCaballo } from './componentes/Caballos/EditCaballo'
 
 
 
-import { Usuarios } from './componentes/usuarios/Usuarios'
+
 // import { GenPdf } from './GenPdf'
 import { Caballo } from './componentes/Caballos/Caballos'
 
@@ -26,6 +26,7 @@ import { Remates } from './componentes/remates/remates'
 import { Carreras } from './componentes/carreras/Carreras'
 import { AddRemates } from './componentes/remates/AddRemates'
 import { Jockey } from './componentes/jockey/Jockey'
+import { Usuarios } from './componentes/usuario/Usuarios'
 
 
 function App() {

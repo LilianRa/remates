@@ -97,10 +97,9 @@ router.put('/localidad/:idlocalidad', bodyParser.json(), (req , res)=>{
         const { idlocalidad } = req.params
         mysqlConnect.query('DELETE FROM localidad WHERE idlocalidad = ?', [idlocalidad], (error, registros)=>{
            if(error){
-               
                 res.json({
                 status:false,
-                mensaje: error
+                mensaje: 'No es posible porque está referenciado en otra tabla'
             })
            }else{
              res.json({

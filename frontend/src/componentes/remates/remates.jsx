@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
 import { Link } from "react-router-dom";
 import { Vigia } from "../../Vigia";
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 import { jsPDF } from "jspdf";
 
 
@@ -83,7 +83,7 @@ export function Remates(){
         console.log(datos_remate)
         setIdRemate(datos_remate.idremate)
         setIdcaballo(datos_remate.idcaballo)
-        setFecha(datos_remate.fecha)
+        setFecha(datos_remate.fecha_sin_formato)
         setMontoJugado(datos_remate.mjugado)
         setMontoPagado(datos_remate.macobrar)
         setIdCarreras(datos_remate.idcarrera)
@@ -166,24 +166,28 @@ export function Remates(){
                 </th>
             </tr>
             <tr>
-                <td>idremate</td>
-                <td>idcaballo</td>
+                <td>Id remate</td>
+                <td>Id caballo</td>
                 <td>Fecha</td>
                 <td>Monto jugado</td>
                 <td>Monto a cobrar</td>
+                <td>Id carrera</td>
+                <td>Estado</td>
                 <td colspan="4">Acciones</td>
             </tr>
         </thead>
         <tbody>
             {remates.map((remates)=>(
                 <tr>
+                 
                 <td >{remates.idremate}</td>   
                 <td >{remates.idcaballo}</td>
-                <td >{remates.fecha}</td>    
+                <td >{remates.fecha_formateada}</td>    
                 <td >{remates.mjugado}</td>  
-                <td >{remates.macobrar}</td>  
+                <td >{remates.macobrar}</td>
+                <td >{remates.idcarrera}</td>  
                 <td >{remates.estado}</td>
-                <td >{remates.idcarrera}</td>    
+                   
                      
                 <td >
                 
@@ -227,6 +231,7 @@ export function Remates(){
                     required
                     type="number" 
                     value={idremate}
+                    min="1"
                     onChange={(event)=>setIdRemate(event.target.value)}
                     className="form-control" 
                     placeholder="Numero de remate"
@@ -238,6 +243,7 @@ export function Remates(){
                     required
                     type="number" 
                     value={idcaballo}
+                    min="1"
                     onChange={(event)=>setIdcaballo(event.target.value)}
                     className="form-control" 
                     placeholder="Numero de caballo"
@@ -260,6 +266,7 @@ export function Remates(){
                     required
                     type="number" 
                     value={mjugado}
+                    min="1"
                     onChange={(event)=>setMontoJugado(event.target.value)}
                     className="form-control" 
                     placeholder="Monto Jugado"
@@ -271,6 +278,7 @@ export function Remates(){
                     required
                     type="number" 
                     value={macobrar}
+                    min="1"
                     onChange={(event)=>setMontoPagado(event.target.value)}
                     className="form-control" 
                     placeholder="Monto Pagado"
@@ -282,6 +290,7 @@ export function Remates(){
                     required
                     type="number" 
                     value={idcarrera}
+                    min="1"
                     onChange={(event)=>setIdCarreras(event.target.value)}
                     className="form-control" 
                     placeholder="Numero de carrera"

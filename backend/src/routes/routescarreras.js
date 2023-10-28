@@ -16,7 +16,7 @@ router.get('/carreras',verificarToken, (req, res)=>{
         if(error){
             res.sendStatus(403);
         }else{
-            mysqlConnect.query('SELECT * FROM carrera ', (error, registros)=>{
+            mysqlConnect.query('SELECT c.*, date_format(c.fecha,"%d-%m-%y")fecha_formateada FROM  carrera c order by("c.idcarreras,c.idcaballo") ', (error, registros)=>{
             if(error){
                 console.log('Error en la base de datos', error)
             }else{

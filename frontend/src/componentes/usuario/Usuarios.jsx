@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as API from '../../servicios/servicios'
-import { Menu } from "../../menu";
+import { Menu } from "../../Menu";
 import Swal from 'sweetalert2' 
 
 
@@ -308,6 +308,7 @@ export function Usuarios(){
                   <input 
                   type="number" 
                   value={dni}
+                  min="1"
                   onChange={(event)=>setDni(event.target.value)}
                   className="form-control" 
                   id="dni" 
@@ -354,6 +355,7 @@ export function Usuarios(){
                   required
                   type="Number" 
                   value={id_rol}
+                  min="1"
                   onChange={(event)=>setIdRol(event.target.value)}
                   className="form-control" 
                   id="rol" 

@@ -57,7 +57,9 @@ export function Sidebar(){
                                     <Link  className="nav-link active" aria-current="page"  to='../generador'>Impresión</Link>
                                 
                                 </li> */}
-                            <li className="nav-link active"  aria-current="page" >{user}</li>
+                                
+                            <li className="nav-link active"  aria-current="page" ><b>{user}</b></li>
+                            
                             <li><button  class="btn btn-primary" onClick={salir}>Cerrar Session</button></li>
                             </ul>
           

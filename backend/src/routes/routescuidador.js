@@ -15,7 +15,7 @@ router.get('/cuidador',verificarToken, (req, res)=>{
         if(error){
             res.sendStatus(403);
         }else{
-            mysqlConnect.query('SELECT * FROM cuidador ', (error, registros)=>{
+            mysqlConnect.query('SELECT c.*, l.nombre nombre_localidad from cuidador c inner join localidad l on c.idlocalidad= l.idlocalidad', (error, registros)=>{
             if(error){
                 console.log('Error en la base de datos', error)
             }else{
